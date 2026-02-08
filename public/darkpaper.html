@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>darkpaper - parasite protocol</title>
+  <meta name="description" content="the darkpaper. private prediction markets on solana.">
+  <meta property="og:title" content="parasite protocol - darkpaper">
+  <meta property="og:description" content="private prediction markets on solana">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="parasite protocol - darkpaper">
+  <meta name="twitter:description" content="private prediction markets on solana">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #000000;
+      --bg-secondary: #0a0a0a;
+      --border: #1a1a1a;
+      --text: #ffffff;
+      --text-secondary: #888888;
+      --text-dim: #555555;
+      --sidebar-width: 260px;
+      --nav-height: 56px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* nav */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: var(--nav-height);
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-logo {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-sep {
+      color: var(--text-dim);
+      font-size: 0.85rem;
+    }
+
+    .nav-doc-title {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      padding: 0.4rem 1rem;
+      background: var(--text);
+      color: var(--bg);
+      border-radius: 5px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* layout */
+    .doc-layout {
+      display: flex;
+      margin-top: var(--nav-height);
+    }
+
+    /* sidebar */
+    .sidebar {
+      position: fixed;
+      top: var(--nav-height);
+      left: 0;
+      width: var(--sidebar-width);
+      height: calc(100vh - var(--nav-height));
+      overflow-y: auto;
+      padding: 2rem 1.5rem;
+      border-right: 1px solid var(--border);
+      background: var(--bg);
+    }
+
+    .sidebar-header {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.2rem;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .sidebar-nav a {
+      display: block;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .sidebar-nav a:hover {
+      background: var(--bg-secondary);
+      color: var(--text);
+    }
+
+    .sidebar-nav a.active {
+      background: #111;
+      color: var(--text);
+    }
+
+    .sidebar-meta {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .sidebar-meta span {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+    }
+
+    /* content */
+    .doc-content {
+      margin-left: var(--sidebar-width);
+      max-width: 750px;
+      padding: 3rem 4rem 6rem;
+    }
+
+    .doc-content h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+
+    .doc-subtitle {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .doc-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+      margin-bottom: 2.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .doc-content h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .doc-content h2:first-of-type {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .doc-content h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 1.8rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .doc-content p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+      max-width: 650px;
+    }
+
+    .doc-content ul {
+      list-style: none;
+      margin-bottom: 1rem;
+      padding-left: 0;
+    }
+
+    .doc-content ul li {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      padding: 0.25rem 0 0.25rem 1.2rem;
+      position: relative;
+    }
+
+    .doc-content ul li::before {
+      content: '-';
+      position: absolute;
+      left: 0;
+      color: var(--text-dim);
+    }
+
+    .doc-content a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: border-color 0.2s;
+    }
+
+    .doc-content a:hover {
+      border-color: var(--text-secondary);
+    }
+
+    .doc-content strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* code block */
+    .code-block {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.2rem 1.5rem;
+      margin: 1rem 0 1.5rem;
+      overflow-x: auto;
+    }
+
+    .code-block code {
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      white-space: pre;
+    }
+
+    /* table */
+    .doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.5rem;
+      font-size: 0.85rem;
+    }
+
+    .doc-table th {
+      text-align: left;
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-dim);
+      font-weight: 500;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .doc-table td {
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    /* divider */
+    .doc-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2.5rem 0;
+    }
+
+    /* footer links section at bottom of doc */
+    .doc-footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .doc-footer a {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+
+    .doc-footer a:hover {
+      color: var(--text);
+    }
+
+    /* disclaimer */
+    .disclaimer {
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    /* mobile */
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .doc-content {
+        margin-left: 0;
+        padding: 2rem 1.5rem 4rem;
+      }
+      .nav-doc-title { display: none; }
+      .nav-sep { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- nav -->
+  <nav>
+    <div class="nav-left">
+      <a href="/" class="nav-logo">jabari labs</a>
+      <span class="nav-sep">/</span>
+      <span class="nav-doc-title">darkpaper</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/">home</a></li>
+      <li><a href="https://seedless.up.railway.app/" target="_blank">seedless docs</a></li>
+      <li><a href="https://github.com/jabari-labs" target="_blank" class="nav-cta">github</a></li>
+    </ul>
+  </nav>
+
+  <div class="doc-layout">
+
+    <!-- sidebar -->
+    <aside class="sidebar">
+      <p class="sidebar-header">the darkpaper</p>
+      <ul class="sidebar-nav">
+        <li><a href="#what-is-this" class="active">what is this</a></li>
+        <li><a href="#the-problem">the problem</a></li>
+        <li><a href="#the-solution">the solution</a></li>
+        <li><a href="#how-it-works">how it works</a></li>
+        <li><a href="#architecture">architecture</a></li>
+        <li><a href="#privacy-layer">privacy layer</a></li>
+        <li><a href="#market-types">market types</a></li>
+        <li><a href="#integrations">integrations</a></li>
+        <li><a href="#user-experience">user experience</a></li>
+        <li><a href="#revenue-model">revenue model</a></li>
+        <li><a href="#tech-stack">tech stack</a></li>
+        <li><a href="#roadmap">roadmap</a></li>
+        <li><a href="#security">security</a></li>
+        <li><a href="#closing-thoughts">closing thoughts</a></li>
+      </ul>
+      <div class="sidebar-meta">
+        <span>author: francis</span>
+        <span>version: 1.0</span>
+        <span>february 2026</span>
+      </div>
+    </aside>
+
+    <!-- content -->
+    <main class="doc-content">
+
+      <h1>parasite protocol</h1>
+      <p class="doc-subtitle">private prediction markets on solana</p>
+      <span class="doc-badge">the darkpaper</span>
+
+      <!-- what is this -->
+      <h2 id="what-is-this">what is this</h2>
+      <p>parasite is a prediction market where no one can see your bets.</p>
+      <p>you can bet on crypto prices, solana ecosystem events, and real-world outcomes. your positions stay private until the market resolves. no one knows what you bet, how much you bet, or which side you took.</p>
+      <p>the protocol plugs into existing infrastructure - <a href="https://pyth.network/" target="_blank">pyth</a> for prices, <a href="https://switchboard.xyz/" target="_blank">switchboard</a> for on-chain data, <a href="https://kalshi.com/" target="_blank">kalshi</a> for real-world events. it feeds off the entire ecosystem. the more solana grows, the more markets parasite can offer.</p>
+      <p>built on top of <a href="https://github.com/francis-codex/seedless" target="_blank">seedless wallet</a> for passkey authentication and gasless transactions. no seed phrases. no gas fees. just predictions.</p>
+
+      <!-- the problem -->
+      <h2 id="the-problem">the problem</h2>
+      <p>prediction markets are broken in three ways.</p>
+
+      <h3>no privacy</h3>
+      <p>every major platform exposes your positions publicly. <a href="https://polymarket.com/" target="_blank">polymarket</a> shows everything on-chain. <a href="https://kalshi.com/" target="_blank">kalshi</a> requires kyc. <a href="https://www.drift.trade/" target="_blank">drift</a> is fully transparent.</p>
+      <p>this causes real problems:</p>
+      <ul>
+        <li>whales get front-run</li>
+        <li>everyone copies "smart money" instead of thinking for themselves</li>
+        <li>controversial bets can have social or professional consequences</li>
+        <li>no true price discovery, just herd behavior</li>
+      </ul>
+
+      <h3>bad user experience</h3>
+      <p>current platforms require seed phrases, gas fees, and desktop-first interfaces. onboarding takes minutes when it should take seconds.</p>
+
+      <h3>fragmented markets</h3>
+      <p>different platforms for different bet types. one for crypto, another for real-world events, another for defi metrics. no unified experience.</p>
+
+      <!-- the solution -->
+      <h2 id="the-solution">the solution</h2>
+      <p>parasite fixes all three.</p>
+      <p>private betting through stealth addresses. your bets are invisible to everyone except you.</p>
+      <p>simple onboarding through passkey authentication. login with your fingerprint. no seed phrases.</p>
+      <p>gasless transactions. you never pay fees.</p>
+      <p>all markets in one place. crypto prices, solana ecosystem metrics, and real-world events.</p>
+      <p>the name "parasite" reflects how the protocol works. it attaches to existing infrastructure and grows with it. pyth, switchboard, kalshi, seedless - parasite feeds off all of them.</p>
+
+      <!-- how it works -->
+      <h2 id="how-it-works">how it works</h2>
+      <p>the flow is simple.</p>
+
+      <h3>connect</h3>
+      <p>open the app. authenticate with your fingerprint or face id. your seedless wallet connects automatically.</p>
+
+      <h3>deposit</h3>
+      <p>deposit usdc. funds route to a stealth address. there is no visible link between your main wallet and your betting wallet.</p>
+
+      <h3>bet</h3>
+      <p>select a market. enter your amount. place the bet. your position is stored encrypted - only you can see it.</p>
+
+      <h3>resolution</h3>
+      <p>when the market resolves, winners get paid to their stealth address. you can withdraw to any wallet or keep funds for more bets.</p>
+
+      <h3>privacy maintained</h3>
+      <p>at no point is there an on-chain trail connecting your identity to your bet.</p>
+
+      <!-- architecture -->
+      <h2 id="architecture">architecture</h2>
+      <p>three layers.</p>
+
+      <h3>client layer</h3>
+      <p>web app built with next.js. mobile app built with react native. both integrate seedless wallet for authentication and transactions.</p>
+
+      <h3>backend layer</h3>
+      <p>node.js api server. handles market aggregation, encrypted position storage, bet routing, and settlement processing. the backend cannot see your positions - they are encrypted client-side before storage.</p>
+
+      <h3>integration layer</h3>
+      <p>pyth for crypto price feeds. switchboard for custom solana metrics. kalshi api for real-world events.</p>
+
+      <div class="code-block"><code>client (web/mobile)
+       |
+       v
+seedless wallet (passkey + stealth + gasless)
+       |
+       v
+parasite api server
+       |
+       v
+pyth / switchboard / kalshi</code></div>
+
+      <p>no custom solana program. no audit dependency. ships fast.</p>
+
+      <!-- privacy layer -->
+      <h2 id="privacy-layer">privacy layer</h2>
+      <p>parasite uses stealth addresses to hide your bets.</p>
+
+      <h3>how stealth addresses work</h3>
+      <p>you have a meta-address made of two public keys - a scan key and a spend key.</p>
+      <p>for each bet, a unique stealth address is derived. the derivation is deterministic but the resulting address is unlinkable to your main wallet.</p>
+      <p>funds sent to your stealth address look like any random address on-chain. no one can connect it to you.</p>
+      <p>you can spend from the stealth address using a derived private key. still no public link to your identity.</p>
+
+      <h3>what stays hidden</h3>
+      <ul>
+        <li>your bet amount</li>
+        <li>your bet direction (yes/no)</li>
+        <li>your identity</li>
+        <li>your position size</li>
+        <li>your win/loss history</li>
+      </ul>
+      <p>only you can see this data.</p>
+
+      <h3>what stays public</h3>
+      <ul>
+        <li>total market volume (healthy markets need visible liquidity)</li>
+        <li>current odds (users need to see prices)</li>
+        <li>resolution outcomes (verifiable fairness)</li>
+      </ul>
+
+      <h3>encryption</h3>
+      <p>positions are encrypted client-side before being sent to the backend. even parasite operators cannot see individual bets. only your passkey can decrypt your data.</p>
+
+      <!-- market types -->
+      <h2 id="market-types">market types</h2>
+      <p>three categories at launch.</p>
+
+      <h3>crypto prices</h3>
+      <p>direct price predictions using <a href="https://pyth.network/" target="_blank">pyth</a> oracle.</p>
+      <p>examples:</p>
+      <ul>
+        <li>will sol be above 200 on march 31</li>
+        <li>will btc hit 150k this year</li>
+        <li>will eth flip sol in market cap</li>
+      </ul>
+      <p>resolution happens automatically when pyth reports the price at the specified time.</p>
+
+      <h3>solana ecosystem</h3>
+      <p>on-chain metrics using <a href="https://switchboard.xyz/" target="_blank">switchboard</a> and direct rpc queries.</p>
+      <p>examples:</p>
+      <ul>
+        <li>will <a href="https://jup.ag/" target="_blank">jupiter</a> exceed 5b monthly volume</li>
+        <li>will <a href="https://marinade.finance/" target="_blank">marinade</a> tvl reach 2b</li>
+        <li>will <a href="https://www.helium.com/" target="_blank">helium</a> hit 1m hotspots</li>
+        <li>will [nft collection] floor exceed 100 sol</li>
+      </ul>
+      <p>resolution uses verifiable on-chain data.</p>
+
+      <h3>real-world events</h3>
+      <p>global events through <a href="https://kalshi.com/" target="_blank">kalshi</a> integration.</p>
+      <p>examples:</p>
+      <ul>
+        <li>federal reserve rate decisions</li>
+        <li>election outcomes</li>
+        <li>sports results</li>
+        <li>economic indicators</li>
+      </ul>
+      <p>resolution uses kalshi's regulated process.</p>
+      <p>inspired by platforms like <a href="https://solprice.now/" target="_blank">solprice.now</a> but with full privacy.</p>
+
+      <h3>custom markets (future)</h3>
+      <p>user-created markets with community resolution. this comes later.</p>
+
+      <!-- integrations -->
+      <h2 id="integrations">integrations</h2>
+
+      <h3><a href="https://github.com/francis-codex/seedless" target="_blank">seedless wallet</a></h3>
+      <p>parasite is built on seedless. this provides:</p>
+      <ul>
+        <li>passkey authentication (no seed phrases)</li>
+        <li>stealth addresses (privacy layer)</li>
+        <li>gasless transactions (no fees)</li>
+        <li>mobile-first design</li>
+      </ul>
+      <p>the same infrastructure, extended for predictions.</p>
+
+      <h3><a href="https://pyth.network/" target="_blank">pyth network</a></h3>
+      <p>real-time price feeds for crypto assets. sol, btc, eth, and major solana tokens. used for market creation, real-time odds, and settlement.</p>
+
+      <h3><a href="https://switchboard.xyz/" target="_blank">switchboard</a></h3>
+      <p>custom oracle data for solana-specific metrics. protocol tvl, dex volumes, validator stats. permissionless oracle creation means any metric can become a market.</p>
+
+      <h3><a href="https://kalshi.com/" target="_blank">kalshi</a></h3>
+      <p>regulated prediction market for real-world events. parasite acts as a private interface to kalshi markets. users bet through parasite, parasite routes to kalshi, settlement flows back privately.</p>
+      <p>kalshi provides regulatory compliance, deep liquidity, and reliable resolution.</p>
+
+      <!-- user experience -->
+      <h2 id="user-experience">user experience</h2>
+
+      <h3>onboarding</h3>
+      <p>download the app or visit the site. tap create account. scan your fingerprint. done.</p>
+      <p>no seed phrases to write down. no gas fees to worry about. thirty seconds from zero to ready.</p>
+
+      <h3>placing a bet</h3>
+      <p>select a market. see the current odds. enter your amount. see your potential payout. tap to confirm. your fingerprint authorizes the transaction.</p>
+      <p>your position appears in your private dashboard. no one else can see it.</p>
+
+      <h3>managing positions</h3>
+      <p>view all your active bets. see current value, profit/loss, time remaining. everything encrypted and private.</p>
+
+      <h3>withdrawing</h3>
+      <p>send funds from your stealth address to any wallet. or keep them in parasite for more bets.</p>
+
+      <!-- revenue model -->
+      <h2 id="revenue-model">revenue model</h2>
+
+      <h3>fees</h3>
+      <table class="doc-table">
+        <thead>
+          <tr>
+            <th>type</th>
+            <th>amount</th>
+            <th>when</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>trading fee</td>
+            <td>2%</td>
+            <td>on winning positions only</td>
+          </tr>
+          <tr>
+            <td>withdrawal fee</td>
+            <td>0.1%</td>
+            <td>when withdrawing to external wallet</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>winners-only fee structure. if you lose, you already lost money - no extra fee. if you win, 2% of your profit goes to the protocol. this aligns incentives.</p>
+
+      <h3>future revenue</h3>
+      <p>premium features like advanced analytics and api access. protocol integrations where other apps license the privacy layer. token with governance and fee sharing comes later - product first.</p>
+
+      <!-- tech stack -->
+      <h2 id="tech-stack">tech stack</h2>
+
+      <h3>frontend</h3>
+      <ul>
+        <li>web: <a href="https://nextjs.org/" target="_blank">next.js</a>, typescript, <a href="https://tailwindcss.com/" target="_blank">tailwind css</a>, <a href="https://github.com/pmndrs/zustand" target="_blank">zustand</a> for state</li>
+        <li>mobile: <a href="https://reactnative.dev/" target="_blank">react native</a> with <a href="https://expo.dev/" target="_blank">expo</a>, typescript</li>
+        <li>charts: <a href="https://www.tradingview.com/lightweight-charts/" target="_blank">lightweight charts</a> from tradingview</li>
+        <li>wallet: <a href="https://github.com/francis-codex/seedless" target="_blank">seedless sdk</a></li>
+      </ul>
+
+      <h3>backend</h3>
+      <ul>
+        <li>runtime: <a href="https://nodejs.org/" target="_blank">node.js</a> with <a href="https://fastify.dev/" target="_blank">fastify</a></li>
+        <li>language: typescript</li>
+        <li>database: <a href="https://www.postgresql.org/" target="_blank">postgresql</a> with encrypted position storage</li>
+        <li>cache: <a href="https://redis.io/" target="_blank">redis</a> for market data</li>
+        <li>queue: <a href="https://bullmq.io/" target="_blank">bullmq</a> for settlement jobs</li>
+        <li>auth: passkey verification through <a href="https://github.com/francis-codex/seedless" target="_blank">seedless</a></li>
+      </ul>
+
+      <h3>integrations</h3>
+      <ul>
+        <li><a href="https://docs.pyth.network/" target="_blank">pyth sdk</a> for price feeds</li>
+        <li><a href="https://docs.switchboard.xyz/" target="_blank">switchboard sdk</a> for custom data</li>
+        <li><a href="https://trading-api.readme.io/reference/getting-started" target="_blank">kalshi rest api</a> for real-world markets</li>
+        <li><a href="https://solana-labs.github.io/solana-web3.js/" target="_blank">solana web3.js</a> for blockchain interaction</li>
+        <li><a href="https://www.kora.network/" target="_blank">kora paymaster</a> for gasless transactions</li>
+      </ul>
+
+      <h3>infrastructure</h3>
+      <ul>
+        <li>frontend on <a href="https://vercel.com/" target="_blank">vercel</a></li>
+        <li>backend on <a href="https://railway.app/" target="_blank">railway</a></li>
+        <li>database on <a href="https://supabase.com/" target="_blank">supabase</a> or railway postgres</li>
+        <li>monitoring with <a href="https://axiom.co/" target="_blank">axiom</a></li>
+        <li>ci/cd through <a href="https://github.com/features/actions" target="_blank">github actions</a></li>
+      </ul>
+
+      <!-- roadmap -->
+      <h2 id="roadmap">roadmap</h2>
+
+      <h3>phase 1: foundation (weeks 1-3)</h3>
+      <p>project setup and architecture. backend api scaffolding. pyth integration for price feeds. basic web ui. usdc deposits and withdrawals. first market: sol price prediction.</p>
+      <p><strong>deliverable:</strong> working prototype with one market type.</p>
+
+      <h3>phase 2: privacy layer (weeks 4-5)</h3>
+      <p>stealth address integration from seedless. encrypted position storage. private betting flow. position management ui.</p>
+      <p><strong>deliverable:</strong> private betting functional.</p>
+
+      <h3>phase 3: seedless integration (weeks 6-7)</h3>
+      <p>passkey authentication. gasless transactions. mobile app in react native. seamless wallet experience.</p>
+      <p><strong>deliverable:</strong> full seedless integration with mobile app.</p>
+
+      <h3>phase 4: market expansion (weeks 8-10)</h3>
+      <p>kalshi api integration. real-world event markets. switchboard integration. solana ecosystem markets. more price prediction markets.</p>
+      <p><strong>deliverable:</strong> multi-market platform.</p>
+
+      <h3>phase 5: growth (weeks 11+)</h3>
+      <p>marketing launch. community building. kalshi grant application. additional oracle integrations. custom market creation beta.</p>
+      <p><strong>deliverable:</strong> public launch.</p>
+
+      <!-- security -->
+      <h2 id="security">security</h2>
+
+      <h3>funds safety</h3>
+      <p>no custom solana program means no smart contract risk. positions are encrypted client-side so the backend cannot steal funds. multiple oracle sources prevent manipulation. kalshi is regulated and well-funded.</p>
+
+      <h3>privacy safety</h3>
+      <p>proper key derivation prevents stealth address linking. no address reuse. encryption at rest with minimal data retention. standard https with no special traffic patterns.</p>
+
+      <h3>operational safety</h3>
+      <p>positions stored safely and can resume after outages. clear resolution rules with oracle-based settlement. kalshi integration provides compliance layer for real-world markets.</p>
+
+      <!-- closing thoughts -->
+      <h2 id="closing-thoughts">closing thoughts</h2>
+      <p>prediction markets work better when positions are private.</p>
+      <p>true price discovery happens when bets reflect genuine conviction, not herd behavior from copying visible whale positions. parasite makes this possible.</p>
+      <p>the protocol feeds off existing infrastructure. <a href="https://pyth.network/" target="_blank">pyth</a>, <a href="https://switchboard.xyz/" target="_blank">switchboard</a>, <a href="https://kalshi.com/" target="_blank">kalshi</a>, <a href="https://github.com/francis-codex/seedless" target="_blank">seedless</a> - all of it combined into one private prediction experience. no custom programs. no audit delays. just building on what already works.</p>
+      <p>privacy is the feature. simplicity is the experience. solana is the foundation.</p>
+      <p>i built this brick by brick. now it is time to ship.</p>
+
+      <!-- doc footer -->
+      <div class="doc-footer">
+        <a href="https://github.com/francis-codex/parasite-protocol" target="_blank">github</a>
+        <a href="https://github.com/francis-codex/seedless" target="_blank">seedless</a>
+        <a href="https://x.com/seedless_wallet" target="_blank">twitter</a>
+        <a href="/">jabari labs</a>
+      </div>
+
+      <p class="disclaimer">this document describes a planned protocol. features and timelines may change. prediction markets involve risk of loss. only bet what you can afford to lose.</p>
+
+    </main>
+  </div>
+
+  <script>
+    // active sidebar link on scroll
+    const sections = document.querySelectorAll('h2[id]');
+    const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const top = section.offsetTop - 100;
+        if (window.scrollY >= top) {
+          current = section.getAttribute('id');
+        }
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -9,6 +9,10 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+app.get('/darkpaper', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'darkpaper.html'));
+});
+
 app.listen(PORT, () => {
   console.log(`jabari-labs running on port ${PORT}`);
 });
