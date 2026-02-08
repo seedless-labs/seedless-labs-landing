@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jabari labs</title>
+  <meta name="description" content="privacy infrastructure on solana. building seedless wallet and parasite protocol.">
+  <meta property="og:title" content="jabari labs">
+  <meta property="og:description" content="privacy infrastructure on solana">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="jabari labs">
+  <meta name="twitter:description" content="privacy infrastructure on solana">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #000000;
+      --bg-secondary: #0a0a0a;
+      --border: #1a1a1a;
+      --text: #ffffff;
+      --text-secondary: #888888;
+      --text-dim: #555555;
+      --accent: #ffffff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* nav */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1.2rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-cta {
+      padding: 0.5rem 1.2rem;
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .nav-cta:hover {
+      opacity: 0.85;
+    }
+
+    /* hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 5%;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-label {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      max-width: 700px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn-primary {
+      padding: 0.75rem 1.8rem;
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.85;
+    }
+
+    .btn-secondary {
+      padding: 0.75rem 1.8rem;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: border-color 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--text-secondary);
+    }
+
+    /* section */
+    section {
+      padding: 6rem 5%;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin-bottom: 3rem;
+      line-height: 1.7;
+    }
+
+    /* projects grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .project-card {
+      background: var(--bg);
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .project-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .status-dot.live {
+      background: #22c55e;
+    }
+
+    .status-dot.building {
+      background: #eab308;
+    }
+
+    .project-name {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .project-tagline {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .project-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .project-features li {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .project-features li::before {
+      content: '/';
+      position: absolute;
+      left: 0;
+      color: var(--text-dim);
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: auto;
+      padding-top: 1rem;
+    }
+
+    .project-link {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .project-link:hover {
+      color: var(--text);
+      border-color: var(--text-secondary);
+    }
+
+    /* manifesto */
+    .manifesto {
+      max-width: 700px;
+    }
+
+    .manifesto p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .manifesto p strong {
+      color: var(--text);
+    }
+
+    /* stack section */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .stack-item {
+      background: var(--bg);
+      padding: 2rem;
+    }
+
+    .stack-item h4 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .stack-item p {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .stack-item a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+
+    .stack-item a:hover {
+      color: var(--text);
+    }
+
+    /* footer */
+    footer {
+      padding: 4rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-name {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .footer-sub {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    /* responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stack-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+
+      .hero-buttons a {
+        text-align: center;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .project-card {
+        padding: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- nav -->
+  <nav>
+    <a href="#" class="nav-logo">jabari labs</a>
+    <ul class="nav-links">
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#about">about</a></li>
+      <li><a href="#stack">stack</a></li>
+    </ul>
+    <a href="https://github.com/jabari-labs" target="_blank" class="nav-cta">github</a>
+  </nav>
+
+  <!-- hero -->
+  <div class="hero">
+    <p class="hero-label">privacy infrastructure on solana</p>
+    <h1>we build what stays hidden</h1>
+    <p>jabari labs builds privacy-first tools on solana. wallets without seed phrases. prediction markets where no one sees your bets. infrastructure that protects users by default.</p>
+    <div class="hero-buttons">
+      <a href="#projects" class="btn-primary">view projects</a>
+      <a href="https://github.com/jabari-labs" target="_blank" class="btn-secondary">github</a>
+    </div>
+  </div>
+
+  <!-- projects -->
+  <section id="projects">
+    <p class="section-label">projects</p>
+    <h2 class="section-title">what we're building</h2>
+    <p class="section-desc">two protocols. one mission. privacy as the default, not the exception.</p>
+
+    <div class="projects-grid">
+      <!-- seedless -->
+      <div class="project-card">
+        <span class="project-status">
+          <span class="status-dot live"></span>
+          devnet live
+        </span>
+        <h3 class="project-name">seedless</h3>
+        <p class="project-tagline">no seed phrase. no gas fees. just your fingerprint. a mobile wallet on solana that uses passkey authentication and gasless transactions.</p>
+        <ul class="project-features">
+          <li>passkey authentication via lazorkit</li>
+          <li>gasless transactions via kora paymaster</li>
+          <li>stealth addresses for privacy</li>
+          <li>burner wallets for isolation</li>
+          <li>jupiter swap integration</li>
+          <li>solana pay and x402 support</li>
+        </ul>
+        <div class="project-links">
+          <a href="https://github.com/francis-codex/seedless" target="_blank" class="project-link">github</a>
+          <a href="https://seedless.up.railway.app/" target="_blank" class="project-link">docs</a>
+          <a href="https://x.com/seedless_wallet" target="_blank" class="project-link">twitter</a>
+        </div>
+      </div>
+
+      <!-- parasite -->
+      <div class="project-card">
+        <span class="project-status">
+          <span class="status-dot building"></span>
+          in development
+        </span>
+        <h3 class="project-name">parasite protocol</h3>
+        <p class="project-tagline">private prediction markets on solana. bet on crypto prices, ecosystem events, and real-world outcomes. your positions stay hidden. always.</p>
+        <ul class="project-features">
+          <li>stealth address betting - fully private</li>
+          <li>pyth oracle for crypto price feeds</li>
+          <li>switchboard for on-chain metrics</li>
+          <li>kalshi integration for real-world events</li>
+          <li>seedless wallet for passkey auth</li>
+          <li>gasless and mobile-first</li>
+        </ul>
+        <div class="project-links">
+          <a href="https://github.com/francis-codex/parasite-protocol" target="_blank" class="project-link">github</a>
+          <a href="https://github.com/francis-codex/parasite-protocol#readme" target="_blank" class="project-link">darkpaper</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- about -->
+  <section id="about">
+    <p class="section-label">about</p>
+    <h2 class="section-title">why jabari labs</h2>
+    <div class="manifesto">
+      <p>prediction markets work better when positions are private. wallets work better when there's nothing to lose. privacy isn't a feature you add later - it's the foundation you build on.</p>
+      <p><strong>seedless</strong> removes the biggest friction in crypto - seed phrases and gas fees. login with your fingerprint. send money without paying fees. receive payments to addresses no one can trace back to you.</p>
+      <p><strong>parasite</strong> takes that privacy layer and applies it to prediction markets. bet on anything happening on solana or in the real world. no one sees your position. no whale tracking. no copy trading. just conviction.</p>
+      <p>the protocol feeds off existing infrastructure - <strong>pyth, switchboard, kalshi, jupiter</strong> - and grows with the ecosystem. the more solana builds, the more markets parasite can offer.</p>
+      <p>built solo. shipped daily. brick by brick.</p>
+    </div>
+  </section>
+
+  <!-- stack -->
+  <section id="stack">
+    <p class="section-label">infrastructure</p>
+    <h2 class="section-title">what powers this</h2>
+    <p class="section-desc">building on battle-tested infrastructure. no custom programs. no audit delays. just composing what already works.</p>
+
+    <div class="stack-grid">
+      <div class="stack-item">
+        <h4>authentication</h4>
+        <p><a href="https://lazor.sh/" target="_blank">lazorkit</a> passkey sdk. biometric login. no seed phrases. device secure enclave.</p>
+      </div>
+      <div class="stack-item">
+        <h4>gasless</h4>
+        <p><a href="https://www.kora.network/" target="_blank">kora paymaster</a> sponsors transaction fees. users never pay gas.</p>
+      </div>
+      <div class="stack-item">
+        <h4>price feeds</h4>
+        <p><a href="https://pyth.network/" target="_blank">pyth network</a> for real-time crypto prices. oracle-verified settlement.</p>
+      </div>
+      <div class="stack-item">
+        <h4>custom data</h4>
+        <p><a href="https://switchboard.xyz/" target="_blank">switchboard</a> for on-chain metrics. permissionless oracle creation.</p>
+      </div>
+      <div class="stack-item">
+        <h4>real-world events</h4>
+        <p><a href="https://kalshi.com/" target="_blank">kalshi api</a> for regulated prediction markets. elections, finance, sports.</p>
+      </div>
+      <div class="stack-item">
+        <h4>swaps</h4>
+        <p><a href="https://jup.ag/" target="_blank">jupiter</a> aggregator for token swaps. best routes across solana dexes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer>
+    <div class="footer-left">
+      <span class="footer-name">jabari labs</span>
+      <span class="footer-sub">privacy infrastructure on solana</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/jabari-labs" target="_blank">github</a>
+      <a href="https://github.com/francis-codex/seedless" target="_blank">seedless</a>
+      <a href="https://github.com/francis-codex/parasite-protocol" target="_blank">parasite</a>
+      <a href="https://x.com/seedless_wallet" target="_blank">twitter</a>
+    </div>
+  </footer>
+
+</body>
+</html>
