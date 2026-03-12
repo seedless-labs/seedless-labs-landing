@@ -14,5 +14,5 @@ app.get('/darkpaper', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`jabari-labs running on port ${PORT}`);
+  console.log(`seedless-labs running on port ${PORT}`);
 });

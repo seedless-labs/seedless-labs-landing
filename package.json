@@ -1,7 +1,7 @@
 {
-  "name": "jabari-labs",
+  "name": "seedless-labs",
   "version": "1.0.0",
-  "description": "jabari labs - building privacy infrastructure on solana",
+  "description": "seedless labs - building privacy infrastructure on solana",
   "scripts": {
     "start": "node server.js"
   },
