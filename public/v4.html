@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seedless — Simple & Private Passkey Wallet on Solana</title>
+  <meta name="description" content="Simple and private passkey wallet on Solana. No seed phrase. No gas. Live in private mainnet beta." />
+  <meta property="og:title" content="Seedless — Simple & Private Passkey Wallet on Solana" />
+  <meta property="og:description" content="Your wallet. No seed phrase. No gas. Live in private mainnet beta." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://seedlesslabs.xyz" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@seedless_wallet" />
+  <link rel="canonical" href="https://seedlesslabs.xyz" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            night: '#04070f',
+            nightSoft: '#0a1020',
+            ink: '#f5f9ff',
+            inkSoft: '#b3c0d6',
+            mute: '#6b7896',
+            sky: '#1e9bff',
+            skyBright: '#3db5ff',
+            cyan: '#00d4ff',
+            line: 'rgba(255,255,255,0.08)',
+          },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; background: #04070f; color: #f5f9ff; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    .glow-sky { position: absolute; width: 560px; height: 560px; border-radius: 50%; background: radial-gradient(circle, rgba(30,155,255,0.42) 0%, rgba(30,155,255,0) 60%); filter: blur(50px); pointer-events: none; }
+    .glow-cyan { position: absolute; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(0,212,255,0.32) 0%, rgba(0,212,255,0) 60%); filter: blur(50px); pointer-events: none; }
+    .glow-deep { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(61,181,255,0.28) 0%, rgba(61,181,255,0) 60%); filter: blur(60px); pointer-events: none; }
+    .glass {
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px) saturate(140%);
+      -webkit-backdrop-filter: blur(20px) saturate(140%);
+      border-radius: 24px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 24px 60px -30px rgba(0,0,0,0.6);
+    }
+    .glass-strong {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(28px) saturate(160%);
+      -webkit-backdrop-filter: blur(28px) saturate(160%);
+      border-radius: 28px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 30px 80px -30px rgba(0,0,0,0.65);
+    }
+    .btn-primary {
+      background: linear-gradient(180deg, #3db5ff 0%, #1e9bff 100%);
+      color: #04070f;
+      transition: transform .15s, box-shadow .15s;
+      box-shadow: 0 10px 28px -10px rgba(30,155,255,0.6), inset 0 1px 0 rgba(255,255,255,0.35);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 14px 36px -10px rgba(30,155,255,0.7), inset 0 1px 0 rgba(255,255,255,0.45); }
+    .btn-ghost {
+      background: rgba(255,255,255,0.05);
+      color: #f5f9ff;
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(12px);
+      transition: all .15s;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.2); }
+    .partner-chip {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 7px 14px 7px 7px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 999px;
+      font-size: 13px; font-weight: 600;
+      color: #f5f9ff;
+      transition: all .15s;
+      backdrop-filter: blur(14px);
+    }
+    .partner-chip:hover { background: rgba(30,155,255,0.08); border-color: rgba(30,155,255,0.3); transform: translateY(-1px); }
+    .partner-chip img, .partner-chip .dot { width: 22px; height: 22px; border-radius: 999px; flex-shrink: 0; object-fit: cover; }
+    .check::before { content: "\2713"; color: #1e9bff; font-weight: 800; margin-right: 0.5rem; }
+    .text-grad-blue {
+      background: linear-gradient(90deg, #1e9bff 0%, #00d4ff 50%, #3db5ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .sol-gradient { background: linear-gradient(135deg, #9945FF 0%, #14F195 50%, #00C2FF 100%); }
+    .doodle { position: absolute; user-select: none; pointer-events: none; opacity: 0.5; }
+    /* subtle ambient grid */
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(30,155,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30,155,255,0.05) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 80%);
+    }
+  </style>
+</head>
+<body class="min-h-screen relative">
+  <div class="grid-bg absolute inset-0 pointer-events-none"></div>
+
+  <!-- header -->
+  <header class="w-full sticky top-0 z-30">
+    <div class="absolute inset-0 bg-night/75 backdrop-blur-xl border-b border-line"></div>
+    <div class="relative max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <img src="assets/logo.png" alt="Seedless" class="w-9 h-9 rounded-xl" />
+        <span class="font-bold text-lg tracking-tight">Seedless</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-inkSoft">
+        <a href="#features" class="hover:text-ink">Features</a>
+        <a href="#ecosystem" class="hover:text-ink">Ecosystem</a>
+        <a href="#seed" class="hover:text-ink">$SEED</a>
+        <a href="https://t.me/+ShXX2hovQH9hMGU0" target="_blank" rel="noopener" class="hover:text-ink">Community</a>
+      </nav>
+      <a href="https://tally.so/r/Pd8vx5" target="_blank" rel="noopener" class="btn-primary px-5 py-2.5 rounded-full text-sm font-bold">Join Waitlist</a>
+    </div>
+  </header>
+
+  <!-- hero -->
+  <section class="relative overflow-hidden">
+    <div class="glow-sky" style="top: -120px; left: -180px;"></div>
+    <div class="glow-cyan" style="top: 80px; right: -140px;"></div>
+    <div class="glow-deep" style="bottom: -160px; left: 30%;"></div>
+
+    <div class="max-w-6xl mx-auto px-6 pt-24 pb-28 relative">
+      <!-- doodle accents (subtle, blue-only) -->
+      <div class="doodle" style="top: 60px; left: 6%;">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="#1e9bff"><path d="M13.5 0L6 14l3-1v9l8-13-3 1V0z"/></svg>
+      </div>
+      <div class="doodle" style="top: 180px; right: 8%; transform: rotate(15deg);">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="#00d4ff"><circle cx="12" cy="12" r="6"/></svg>
+      </div>
+      <div class="doodle" style="bottom: 100px; left: 14%;">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#3db5ff" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+      </div>
+      <div class="doodle" style="bottom: 160px; right: 16%; transform: rotate(-12deg);">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="#1e9bff"><path d="M12 2L2 22h20L12 2z" opacity=".4"/><circle cx="12" cy="14" r="4"/></svg>
+      </div>
+
+      <div class="relative z-10 text-center max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 glass rounded-full text-xs font-semibold text-inkSoft mb-7">
+          <span class="w-2 h-2 rounded-full" style="background:#1e9bff; box-shadow: 0 0 12px #1e9bff;"></span>
+          Live in Private Mainnet Beta
+        </div>
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.02] text-ink">
+          Simple & Private<br/>
+          <span class="text-grad-blue">Passkey Wallet</span><br/>
+          on Solana
+        </h1>
+        <p class="mt-7 text-lg md:text-xl text-inkSoft font-medium">Your wallet. No seed phrase. No gas.</p>
+        <div class="mt-9 flex items-center justify-center gap-3 flex-wrap">
+          <a href="https://tally.so/r/Pd8vx5" target="_blank" rel="noopener" class="btn-primary px-7 py-3.5 rounded-full text-sm font-bold inline-flex items-center gap-2">
+            Join Waitlist
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#features" class="btn-ghost px-7 py-3.5 rounded-full text-sm font-semibold">Learn More</a>
+        </div>
+        <p class="mt-7 text-xs uppercase tracking-[0.22em] text-mute font-bold">100+ on the waitlist · 8 days</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ecosystem strip -->
+  <section id="ecosystem" class="py-16 border-y border-line relative">
+    <div class="max-w-6xl mx-auto px-6 relative">
+      <p class="text-center text-xs uppercase tracking-[0.22em] text-mute font-bold mb-2">The Ecosystem Behind Seedless</p>
+      <p class="text-center text-inkSoft text-sm mb-7">Built on Solana. Powered by the best.</p>
+      <div class="flex flex-wrap items-center justify-center gap-2.5">
+        <a href="https://solana.com" target="_blank" rel="noopener" class="partner-chip">
+          <img src="assets/partners/solana.jpg" alt="Solana"/>Solana
+        </a>
+        <a href="https://www.alchemy.com" target="_blank" rel="noopener" class="partner-chip">
+          <img src="assets/partners/alchemy.jpg" alt="Alchemy"/>Alchemy Solana Fund
+        </a>
+        <a href="https://jup.ag" target="_blank" rel="noopener" class="partner-chip">
+          <img src="assets/partners/jupiter.jpg" alt="Jupiter"/>Jupiter
+        </a>
+        <a href="https://lazor.sh" target="_blank" rel="noopener" class="partner-chip">
+          <img src="assets/partners/lazorkit.jpg" alt="LazorKit"/>LazorKit
+        </a>
+        <a href="https://www.colosseum.com" target="_blank" rel="noopener" class="partner-chip">
+          <img src="assets/partners/colosseum.jpg" alt="Colosseum"/>Colosseum
+        </a>
+        <a href="https://bags.fm" target="_blank" rel="noopener" class="partner-chip">
+          <img src="assets/partners/bags.jpg" alt="Bags"/>Bags
+        </a>
+        <a href="https://solanamobile.com" target="_blank" rel="noopener" class="partner-chip">
+          <span class="dot sol-gradient"></span>Solana Mobile · Seeker
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- features -->
+  <section id="features" class="py-28 relative overflow-hidden">
+    <div class="glow-sky" style="top: 80px; right: -120px;"></div>
+    <div class="glow-cyan" style="bottom: -120px; left: -120px;"></div>
+
+    <div class="relative max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl md:text-5xl font-black text-center text-ink tracking-tight leading-tight">
+        The simplest way to explore<br/>
+        <span class="text-grad-blue">privacy on Solana</span>
+      </h2>
+      <p class="text-center text-inkSoft mt-5 text-base max-w-xl mx-auto">Built for people who want a wallet that just works. No phrases to write down. No gas to figure out.</p>
+
+      <div class="mt-14 grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="glass p-7">
+          <div class="aspect-[5/4] rounded-2xl flex items-center justify-center relative overflow-hidden" style="background: radial-gradient(circle at 50% 50%, rgba(30,155,255,0.22) 0%, transparent 70%);">
+            <div class="w-28 h-28 rounded-3xl flex items-center justify-center" style="background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.1);">
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#3db5ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 8V6a2 2 0 0 1 2-2h2"/><path d="M4 16v2a2 2 0 0 0 2 2h2"/><path d="M16 4h2a2 2 0 0 1 2 2v2"/><path d="M16 20h2a2 2 0 0 0 2-2v-2"/>
+                <path d="M9 10v1"/><path d="M15 10v1"/><path d="M12 10v4"/><path d="M9 16c1.2 1 4.8 1 6 0"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="font-bold text-base mt-5">Face ID Recovery</h3>
+          <p class="text-sm text-inkSoft mt-1.5">Your face is the key. No 12 words to lose.</p>
+        </div>
+        <div class="glass p-7">
+          <div class="aspect-[5/4] rounded-2xl flex items-center justify-center relative overflow-hidden" style="background: radial-gradient(circle at 50% 50%, rgba(0,212,255,0.2) 0%, transparent 70%);">
+            <div class="px-7 py-4 rounded-full flex flex-col items-center" style="background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.1);">
+              <span class="text-3xl font-black" style="color:#00d4ff;">$0.00</span>
+              <span class="text-[10px] uppercase tracking-wider font-bold text-mute mt-1">Gas fee</span>
+            </div>
+          </div>
+          <h3 class="font-bold text-base mt-5">No Gas Fees</h3>
+          <p class="text-sm text-inkSoft mt-1.5">Send, swap, sign. We sponsor the gas.</p>
+        </div>
+        <div class="glass p-7">
+          <div class="aspect-[5/4] rounded-2xl flex items-center justify-center relative overflow-hidden" style="background: radial-gradient(circle at 50% 50%, rgba(61,181,255,0.18) 0%, transparent 70%);">
+            <svg width="84" height="84" viewBox="0 0 24 24" fill="none" stroke="#3db5ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="8" cy="14" r="3.5" fill="#3db5ff" fill-opacity="0.25"/>
+              <circle cx="16" cy="14" r="3.5" fill="#3db5ff" fill-opacity="0.25"/>
+              <path d="M3 14h2"/><path d="M19 14h2"/>
+              <path d="M11 14c.5-1 1.5-1 2 0"/>
+              <path d="M5 9l3-3h8l3 3"/>
+            </svg>
+          </div>
+          <h3 class="font-bold text-base mt-5">Private by Default</h3>
+          <p class="text-sm text-inkSoft mt-1.5">Stealth addresses and burner wallets, built in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- your privacy your rules + phone -->
+  <section class="py-28 relative overflow-hidden border-y border-line">
+    <div class="glow-deep" style="top: 30%; left: -180px;"></div>
+    <div class="glow-cyan" style="bottom: -120px; right: -140px;"></div>
+
+    <div class="relative max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+      <!-- phone -->
+      <div class="flex justify-center order-2 md:order-1">
+        <div class="relative w-[300px] h-[610px] rounded-[50px] p-3" style="background: linear-gradient(160deg, #1a2540 0%, #04070f 100%); box-shadow: 0 40px 100px -30px rgba(30,155,255,0.35), 0 30px 80px -30px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1);">
+          <div class="absolute top-3 left-1/2 -translate-x-1/2 w-28 h-6 rounded-b-2xl z-10" style="background:#04070f;"></div>
+          <div class="w-full h-full rounded-[40px] overflow-hidden bg-white flex flex-col">
+            <div class="flex justify-between items-center px-6 pt-3 pb-1 text-[11px] font-semibold text-[#0a2a5e]">
+              <span>11:28</span>
+              <div class="flex items-center gap-1.5">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C8.5 4 5.2 5.2 2.7 7.2L4 8.7c2.3-1.8 5.1-2.8 8-2.8s5.7 1 8 2.8l1.3-1.5C18.8 5.2 15.5 4 12 4z"/></svg>
+                <svg width="18" height="10" viewBox="0 0 20 10" fill="none" stroke="currentColor" stroke-width="1"><rect x="0.5" y="0.5" width="16" height="9" rx="2"/><rect x="2" y="2" width="13" height="6" fill="currentColor"/></svg>
+              </div>
+            </div>
+            <div class="flex justify-between items-center px-5 mt-2">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:#1e9bff;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M3 11h18"/></svg>
+              </div>
+              <div class="w-9 h-9 rounded-full flex items-center justify-center" style="background:#f3f5f9;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0a2a5e" stroke-width="2"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></svg>
+              </div>
+            </div>
+            <div class="text-center mt-6 px-6">
+              <div class="text-[44px] font-black text-[#0a2a5e] tracking-tight leading-none">$6,742<span class="text-3xl">.83</span></div>
+            </div>
+            <div class="flex justify-center gap-3 mt-6 px-6">
+              <div class="flex-1 max-w-[110px] py-4 rounded-2xl flex flex-col items-center gap-1" style="background:#f3f5f9;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0a2a5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                <span class="text-sm font-semibold text-[#0a2a5e]">Send</span>
+              </div>
+              <div class="flex-1 max-w-[110px] py-4 rounded-2xl flex flex-col items-center gap-1" style="background:#f3f5f9;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0a2a5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                <span class="text-sm font-semibold text-[#0a2a5e]">Receive</span>
+              </div>
+            </div>
+            <div class="flex gap-2 mt-6 px-5">
+              <div class="px-4 py-1.5 rounded-full text-sm font-bold text-[#0a2a5e]" style="background:#f3f5f9;">Tokens</div>
+              <div class="px-4 py-1.5 text-sm font-bold" style="color:#9ba6bc;">Tools</div>
+            </div>
+            <div class="px-5 mt-3 space-y-2">
+              <div class="px-3 py-2.5 rounded-2xl flex items-center gap-3" style="background:#f3f5f9;">
+                <div class="w-9 h-9 rounded-full flex items-center justify-center" style="background:#0a2a5e;">
+                  <svg viewBox="0 0 24 24" width="18" height="18"><defs><linearGradient id="s1" x1="0%" x2="100%"><stop offset="0%" stop-color="#9945FF"/><stop offset="50%" stop-color="#14F195"/><stop offset="100%" stop-color="#00C2FF"/></linearGradient></defs><path d="M5 7l3-3h11l-3 3H5zm0 5l3-3h11l-3 3H5zm0 5l3-3h11l-3 3H5z" fill="url(#s1)"/></svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-1">
+                    <span class="font-bold text-[#0a2a5e] text-sm">Solana</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="#1e9bff"><path d="M12 2L9 6 4 5l-1 5 3 4-3 4 1 5 5-1 3 4 3-4 5 1 1-5-3-4 3-4-1-5-5 1z"/></svg>
+                  </div>
+                  <div class="flex items-center gap-1.5 text-[11px] mt-0.5">
+                    <span style="color:#687991;">$86.60</span>
+                    <span class="font-semibold" style="color:#19b075;">+2.83%</span>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="font-bold text-[#0a2a5e] text-sm">$4,521.40</div>
+                  <div class="text-[11px]" style="color:#687991;">52.21 SOL</div>
+                </div>
+              </div>
+              <div class="px-3 py-2.5 rounded-2xl flex items-center gap-3" style="background:#f3f5f9;">
+                <div class="w-9 h-9 rounded-full flex items-center justify-center" style="background:#1e9bff;"><span class="text-white font-black text-xs">$</span></div>
+                <div class="flex-1 min-w-0">
+                  <div class="font-bold text-[#0a2a5e] text-sm">USDC</div>
+                  <div class="text-[11px]" style="color:#687991;">$1.00</div>
+                </div>
+                <div class="text-right">
+                  <div class="font-bold text-[#0a2a5e] text-sm">$1,847.00</div>
+                  <div class="text-[11px]" style="color:#687991;">1,847 USDC</div>
+                </div>
+              </div>
+              <div class="px-3 py-2.5 rounded-2xl flex items-center gap-3" style="background:#f3f5f9;">
+                <div class="w-9 h-9 rounded-full flex items-center justify-center" style="background:rgba(30,155,255,0.18);"><img src="assets/logo.png" class="w-6 h-6"/></div>
+                <div class="flex-1 min-w-0">
+                  <div class="font-bold text-[#0a2a5e] text-sm">SEED</div>
+                  <div class="flex items-center gap-1.5 text-[11px] mt-0.5">
+                    <span style="color:#687991;">$0.0038</span>
+                    <span class="font-semibold" style="color:#19b075;">+12.47%</span>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="font-bold text-[#0a2a5e] text-sm">$374.43</div>
+                  <div class="text-[11px]" style="color:#687991;">98,032 SEED</div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-auto mx-5 mb-5 px-4 py-2 rounded-full flex items-center justify-between" style="background:#f3f5f9;">
+              <div class="w-9 h-9 rounded-full flex items-center justify-center" style="background:#1e9bff;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>
+              </div>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a2a5e" stroke-width="2"><path d="M7 4v16M17 4v16M3 8l4-4 4 4M21 16l-4 4-4-4"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a2a5e" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="order-1 md:order-2">
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">Your Privacy.<br/><span class="text-grad-blue">Your Rules.</span></h2>
+        <p class="mt-5 text-base md:text-lg text-inkSoft max-w-md">Lightning-fast Solana transactions, built around your passkey. Send, swap, and stay private in one tap.</p>
+        <div class="mt-7 grid grid-cols-2 gap-y-3 max-w-md text-base font-semibold">
+          <span class="check">Private</span>
+          <span class="check">Gasless</span>
+          <span class="check">Simple</span>
+          <span class="check">Fast</span>
+        </div>
+        <a href="https://tally.so/r/Pd8vx5" target="_blank" rel="noopener" class="btn-primary mt-8 inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold">
+          Get early access
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- final cta -->
+  <section id="waitlist" class="py-28 relative">
+    <div class="glow-sky" style="top: -60px; left: 50%; transform: translateX(-50%);"></div>
+    <div class="relative max-w-3xl mx-auto px-6">
+      <div class="glass-strong p-10 md:p-14 text-center relative overflow-hidden">
+        <h2 class="text-3xl md:text-4xl font-black tracking-tight"><span class="text-grad-blue">Explore Seedless</span></h2>
+        <p class="mt-3 text-inkSoft text-base md:text-lg max-w-md mx-auto">Live in private mainnet beta. 100+ on the waitlist in 8 days. Get a spot before public launch.</p>
+        <a href="https://tally.so/r/Pd8vx5" target="_blank" rel="noopener" class="btn-primary mt-7 inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold">
+          Join Waitlist
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer class="border-t border-line relative">
+    <div class="max-w-6xl mx-auto px-6 py-14 grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
+      <div class="col-span-2 md:col-span-1">
+        <div class="flex items-center gap-2">
+          <img src="assets/logo.png" alt="Seedless" class="w-8 h-8 rounded-lg" />
+          <span class="font-bold text-base">Seedless</span>
+        </div>
+        <p class="mt-3 text-xs text-mute max-w-[14rem]">Simple and private passkey wallet on Solana.</p>
+        <p class="mt-3 text-xs text-mute">© 2026 Seedless Labs Inc.</p>
+      </div>
+      <div>
+        <p class="font-bold mb-3">Wallet</p>
+        <ul class="space-y-2 text-inkSoft">
+          <li><a href="#features" class="hover:text-ink">Features</a></li>
+          <li><a href="#ecosystem" class="hover:text-ink">Ecosystem</a></li>
+          <li><a href="https://tally.so/r/Pd8vx5" target="_blank" rel="noopener" class="hover:text-ink">Join Waitlist</a></li>
+          <li><a href="https://t.me/+ShXX2hovQH9hMGU0" target="_blank" rel="noopener" class="hover:text-ink">Beta Community</a></li>
+        </ul>
+      </div>
+      <div id="seed">
+        <p class="font-bold mb-3">$SEED</p>
+        <ul class="space-y-2 text-inkSoft">
+          <li><a href="https://dexscreener.com/solana/FYt532fCsCuoHd9aaX5QN7pZLUTiSXwEjhBmZijgBAGS" target="_blank" rel="noopener" class="hover:text-ink">Chart</a></li>
+          <li><a href="https://bags.fm/launch/FYt532fCsCuoHd9aaX5QN7pZLUTiSXwEjhBmZijgBAGS" target="_blank" rel="noopener" class="hover:text-ink">Buy on Bags</a></li>
+          <li><a href="https://www.coingecko.com/en/coins/seedless-wallet" target="_blank" rel="noopener" class="hover:text-ink">CoinGecko</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-bold mb-3">Socials</p>
+        <ul class="space-y-2 text-inkSoft">
+          <li><a href="https://x.com/seedless_wallet" target="_blank" rel="noopener" class="hover:text-ink">X (@seedless_wallet)</a></li>
+          <li><a href="https://t.me/+ShXX2hovQH9hMGU0" target="_blank" rel="noopener" class="hover:text-ink">Telegram</a></li>
+          <li><a href="https://github.com/seedless-labs" target="_blank" rel="noopener" class="hover:text-ink">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

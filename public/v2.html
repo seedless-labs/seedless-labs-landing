@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seedless — Simple & Private Passkey Wallet on Solana</title>
+  <meta name="description" content="Simple and private passkey wallet on Solana. No seed phrase. Gasless first transaction. Live in private mainnet beta." />
+  <meta property="og:title" content="Seedless — Simple & Private Passkey Wallet on Solana" />
+  <meta property="og:description" content="Your wallet. No seed phrase. No gas. Live in private mainnet beta." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://seedlesslabs.xyz" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@seedless_wallet" />
+  <link rel="canonical" href="https://seedlesslabs.xyz" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#f8f4ec',
+            ink: '#0a2a5e',
+            inkSoft: '#1f3c6e',
+            sky: '#1e9bff',
+            skyDark: '#0d7ee6',
+            muted: '#687991',
+            line: '#e9e2d2',
+            card: '#ffffff',
+            chipBg: '#ffffff',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; background: #f8f4ec; color: #0a2a5e; -webkit-font-smoothing: antialiased; }
+    .doodle { position: absolute; user-select: none; pointer-events: none; }
+    .card-shadow { box-shadow: 0 4px 14px -6px rgba(10, 42, 94, 0.08), 0 2px 6px -2px rgba(10, 42, 94, 0.06); }
+    .phone-shadow { box-shadow: 0 30px 80px -30px rgba(10, 42, 94, 0.35), 0 10px 30px -10px rgba(10, 42, 94, 0.15); }
+    .btn-primary { background: #1e9bff; color: #fff; transition: background .15s; }
+    .btn-primary:hover { background: #0d7ee6; }
+    .btn-outline { border: 1px solid #cdd7e6; color: #0a2a5e; background: transparent; transition: all .15s; }
+    .btn-outline:hover { background: #fff; border-color: #0a2a5e; }
+    .check::before { content: "\2713"; color: #1e9bff; font-weight: 800; margin-right: 0.5rem; }
+    .partner-chip { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; background: #fff; border: 1px solid #ece4d3; border-radius: 999px; font-size: 14px; font-weight: 600; color: #0a2a5e; transition: all .15s; }
+    .partner-chip:hover { transform: translateY(-1px); box-shadow: 0 6px 14px -8px rgba(10,42,94,.18); }
+    .partner-dot { width: 10px; height: 10px; border-radius: 999px; flex-shrink: 0; }
+    /* phone home screen */
+    .ph-bg { background: #ffffff; }
+    .ph-card { background: #f3f5f9; border-radius: 18px; }
+    .sol-gradient { background: linear-gradient(135deg, #9945FF 0%, #14F195 50%, #00C2FF 100%); }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- header -->
+  <header class="w-full border-b border-line bg-cream/90 backdrop-blur sticky top-0 z-30">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <img src="assets/logo.png" alt="Seedless" class="w-8 h-8 rounded-lg" />
+        <span class="font-bold text-lg tracking-tight">Seedless</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-inkSoft">
+        <a href="#features" class="hover:text-ink">Features</a>
+        <a href="#seed" class="hover:text-ink">$SEED</a>
+        <a href="https://t.me/+ShXX2hovQH9hMGU0" target="_blank" rel="noopener" class="hover:text-ink">Community</a>
+      </nav>
+      <a href="https://tally.so/r/Pd8vx5" target="_blank" rel="noopener" class="btn-primary px-5 py-2.5 rounded-full text-sm font-semibold">Join Waitlist</a>
+    </div>
+  </header>
+
+  <!-- hero -->
+  <section class="relative overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 pt-20 pb-24 relative">
+      <!-- scattered doodles, more variety / colored shapes -->
+      <div class="doodle" style="top: 70px; left: 3%;">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="#ff6b3d"><path d="M13.5 0L6 14l3-1v9l8-13-3 1V0z"/></svg>
+      </div>
+      <div class="doodle" style="top: 30px; left: 14%; transform: rotate(-15deg);">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="#1e9bff"><path d="M12 2l2.39 6.95H22l-6.21 4.51 2.39 7.04L12 16l-6.18 4.5 2.39-7.04L2 8.95h7.61z"/></svg>
+      </div>
+      <div class="doodle" style="top: 180px; left: 7%; transform: rotate(8deg);">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0a2a5e" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+      </div>
+      <div class="doodle" style="top: 280px; left: 2%;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="#ffc83d"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+      </div>
+      <div class="doodle" style="top: 380px; left: 10%;">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg>
+      </div>
+      <div class="doodle" style="top: 60px; right: 5%;">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="#facc15"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3" fill="none" stroke="#0a2a5e" stroke-width="2"/></svg>
+      </div>
+      <div class="doodle" style="top: 140px; right: 22%; transform: rotate(20deg);">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="#22c55e"><path d="M21 12c0 1.66-4.03 3-9 3s-9-1.34-9-3 4.03-3 9-3 9 1.34 9 3z" opacity=".25"/><circle cx="12" cy="12" r="4"/></svg>
+      </div>
+      <div class="doodle" style="top: 230px; right: 8%; transform: rotate(-12deg);">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="#f59e0b"><path d="M21 16V8a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2zM3 10h18" stroke="#0a2a5e" stroke-width="1" fill="#fbbf24"/></svg>
+      </div>
+      <div class="doodle" style="top: 350px; right: 14%;">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="#0a2a5e"><path d="M9 12h6"/><circle cx="12" cy="12" r="10" fill="#0a2a5e"/><path d="M8 10h8M8 14h5" stroke="#fff" stroke-width="1.5"/></svg>
+      </div>
+      <div class="doodle" style="top: 410px; right: 4%; transform: rotate(15deg);">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+      </div>
+      <div class="doodle" style="bottom: 80px; left: 6%;">
+        <svg width="46" height="46" viewBox="0 0 24 24" fill="#a855f7"><path d="M12 2L2 22h20L12 2z" opacity=".25"/><circle cx="12" cy="14" r="4"/></svg>
+      </div>
+      <div class="doodle" style="bottom: 30px; left: 22%;">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="#22d3ee"><circle cx="12" cy="12" r="10"/></svg>
+      </div>
+      <div class="doodle" style="bottom: 60px; right: 12%;">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#0a2a5e" stroke-width="2.5"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/></svg>
+      </div>
+
+      <div class="relative z-10 text-center max-w-3xl mx-auto">
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.05] text-ink">
+          Simple & Private<br />Passkey Wallet on Solana
+        </h1>
+        <p class="mt-6 text-lg md:text-xl text-inkSoft font-medium">Your wallet. No seed phrase. No gas.</p>
+        <div class="mt-8 flex items-center justify-center gap-3 flex-wrap">
+          <a href="https://tally.so/r/Pd8vx5" target="_blank" rel="noopener" class="btn-primary px-6 py-3 rounded-full text-sm font-semibold inline-flex items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            Join Waitlist
+          </a>
+          <a href="#features" class="btn-outline px-6 py-3 rounded-full text-sm font-semibold">Learn More</a>
+        </div>
+        <p class="mt-6 text-xs uppercase tracking-[0.18em] text-muted font-semibold">Live in Private Mainnet Beta · 100+ on the waitlist</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- backed by strip -->
+  <section class="py-10 border-y border-line bg-white/50">
+    <div class="max-w-6xl mx-auto px-6">
+      <p class="text-center text-xs uppercase tracking-[0.22em] text-muted font-bold mb-5">Backed by · Partners · Built on Solana</p>
+      <div class="flex flex-wrap items-center justify-center gap-2.5">
+        <a href="https://www.alchemy.com" target="_blank" rel="noopener" class="partner-chip">
+          <span class="partner-dot" style="background:#0c0c0e"></span>Alchemy Solana Fund
+        </a>
+        <a href="https://bags.fm" target="_blank" rel="noopener" class="partner-chip">
+          <span class="partner-dot" style="background:#000"></span>Bags
+        </a>
+        <a href="https://lazor.sh" target="_blank" rel="noopener" class="partner-chip">
+          <span class="partner-dot" style="background:#7c3aed"></span>LazorKit
+        </a>
+        <a href="https://ika.xyz" target="_blank" rel="noopener" class="partner-chip">
+          <span class="partner-dot" style="background:#f97316"></span>Ika
+        </a>
+        <a href="https://umbra.cash" target="_blank" rel="noopener" class="partner-chip">
+          <span class="partner-dot" style="background:#10b981"></span>Umbra
+        </a>
+        <a href="https://superteam.fun/nigeria" target="_blank" rel="noopener" class="partner-chip">
+          <span class="partner-dot" style="background:#ef4444"></span>SuperteamNG
+        </a>
+        <a href="https://solana.com" target="_blank" rel="noopener" class="partner-chip">
+          <span class="partner-dot sol-gradient"></span>Built on Solana
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- features (3 cards) -->
+  <section id="features" class="py-24">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl md:text-5xl font-black text-center text-ink tracking-tight leading-tight">
+        The simplest way to explore<br/>privacy on Solana
+      </h2>
+      <p class="text-center text-muted mt-4 text-base max-w-xl mx-auto">Built for people who want a wallet that just works. No phrases to write down, no gas to figure out.</p>
+      <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- card 1 -->
+        <div class="bg-card rounded-2xl card-shadow p-5">
+          <div class="rounded-xl overflow-hidden bg-gradient-to-b from-cream to-white aspect-[4/3] flex items-center justify-center p-5">
+            <!-- face id visual -->
+            <div class="w-28 h-28 rounded-2xl bg-ink flex items-center justify-center">
+              <svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 8V6a2 2 0 0 1 2-2h2"/><path d="M4 16v2a2 2 0 0 0 2 2h2"/><path d="M16 4h2a2 2 0 0 1 2 2v2"/><path d="M16 20h2a2 2 0 0 0 2-2v-2"/>
+                <path d="M9 10v1"/><path d="M15 10v1"/><path d="M12 10v4"/><path d="M9 16c1.2 1 4.8 1 6 0"/>
+              </svg>
+            </div>
+          </div>
+          <div class="mt-4">
+            <h3 class="font-bold text-base text-ink">Face ID Recovery</h3>
+            <p class="text-sm text-muted mt-1">Your face is the key. No 12 words to lose.</p>
+          </div>
+        </div>
+        <!-- card 2 -->
+        <div class="bg-card rounded-2xl card-shadow p-5">
+          <div class="rounded-xl overflow-hidden bg-gradient-to-b from-cream to-white aspect-[4/3] flex items-center justify-center p-5">
+            <!-- gas free visual -->
+            <div class="relative">
+              <div class="w-28 h-16 rounded-full bg-sky/15 flex items-center justify-center">
+                <span class="text-2xl font-black text-sky">$0.00</span>
+              </div>
+              <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 text-[10px] font-bold text-muted uppercase tracking-wider">Gas fee</div>
+            </div>
+          </div>
+          <div class="mt-4">
+            <h3 class="font-bold text-base text-ink">No Gas Fees</h3>
+            <p class="text-sm text-muted mt-1">Send, swap, sign. We sponsor the gas.</p>
+          </div>
+        </div>
+        <!-- card 3 -->
+        <div class="bg-card rounded-2xl card-shadow p-5">
+          <div class="rounded-xl overflow-hidden bg-gradient-to-b from-cream to-white aspect-[4/3] flex items-center justify-center p-5">
+            <!-- private visual -->
+            <div class="flex items-center justify-center">
+              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#0a2a5e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="14" r="3.5" fill="#0a2a5e"/>
+                <circle cx="16" cy="14" r="3.5" fill="#0a2a5e"/>
+                <path d="M3 14h2"/><path d="M19 14h2"/>
+                <path d="M11 14c.5-1 1.5-1 2 0"/>
+                <path d="M5 9l3-3h8l3 3"/>
+              </svg>
+            </div>
+          </div>
+          <div class="mt-4">
+            <h3 class="font-bold text-base text-ink">Private by Default</h3>
+            <p class="text-sm text-muted mt-1">Stealth addresses and burner wallets, built in.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- your privacy your rules + phone mockup -->
+  <section class="py-24 bg-white/40 border-y border-line">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+      <!-- phone -->
+      <div class="flex justify-center order-2 md:order-1">
+        <div class="relative w-[300px] h-[610px] bg-ink rounded-[48px] p-3 phone-shadow">
+          <div class="absolute top-3 left-1/2 -translate-x-1/2 w-28 h-6 bg-ink rounded-b-2xl z-10"></div>
+          <div class="w-full h-full rounded-[38px] overflow-hidden ph-bg flex flex-col">
+            <!-- status bar -->
+            <div class="flex justify-between items-center px-6 pt-3 pb-1 text-[11px] font-semibold text-ink">
+              <span>11:28</span>
+              <div class="flex items-center gap-1">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C8.5 4 5.2 5.2 2.7 7.2L4 8.7c2.3-1.8 5.1-2.8 8-2.8s5.7 1 8 2.8l1.3-1.5C18.8 5.2 15.5 4 12 4zm0 4c-2.5 0-4.8.8-6.7 2.2L6.6 11.7c1.5-1.1 3.4-1.7 5.4-1.7s3.9.6 5.4 1.7l1.3-1.5C16.8 8.8 14.5 8 12 8zm0 4c-1.4 0-2.7.5-3.7 1.2L9.6 14.7c.7-.5 1.5-.7 2.4-.7s1.7.2 2.4.7l1.3-1.5C14.7 12.5 13.4 12 12 12zm0 4c-.4 0-.7.1-1 .3L12 18l1-1.7c-.3-.2-.6-.3-1-.3z"/></svg>
+                <svg width="18" height="10" viewBox="0 0 20 10" fill="none" stroke="currentColor" stroke-width="1"><rect x="0.5" y="0.5" width="16" height="9" rx="2"/><rect x="2" y="2" width="13" height="6" fill="currentColor"/><rect x="17" y="3" width="2" height="4" rx="0.5" fill="currentColor"/></svg>
+              </div>
+            </div>
+            <!-- top icons -->
+            <div class="flex justify-between items-center px-5 mt-2">
+              <div class="w-10 h-10 rounded-full bg-sky flex items-center justify-center">
+                <img src="assets/logo.png" alt="" class="w-6 h-6 object-contain invert" onerror="this.style.display='none'"/>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff" style="display:none"><path d="M4 4h16v16H4z"/></svg>
+              </div>
+              <div class="w-9 h-9 rounded-full border border-line flex items-center justify-center">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0a2a5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></svg>
+              </div>
+            </div>
+            <!-- balance -->
+            <div class="text-center mt-7 px-6">
+              <div class="text-[44px] font-black text-ink tracking-tight leading-none">$6,742<span class="text-3xl">.83</span></div>
+            </div>
+            <!-- send/receive -->
+            <div class="flex justify-center gap-3 mt-6 px-6">
+              <div class="ph-card flex-1 max-w-[110px] py-4 flex flex-col items-center gap-1">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0a2a5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                <span class="text-sm font-semibold text-ink">Send</span>
+              </div>
+              <div class="ph-card flex-1 max-w-[110px] py-4 flex flex-col items-center gap-1">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0a2a5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                <span class="text-sm font-semibold text-ink">Receive</span>
+              </div>
+            </div>
+            <!-- tabs -->
+            <div class="flex gap-2 mt-6 px-5">
+              <div class="ph-card px-4 py-1.5 text-sm font-bold text-ink">Tokens</div>
+              <div class="px-4 py-1.5 text-sm font-bold text-muted">Tools</div>
+            </div>
+            <!-- token list -->
+            <div class="px-5 mt-3 space-y-2">
+              <!-- SOL -->
+              <div class="ph-card px-3 py-2.5 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-ink flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" width="18" height="18"><defs><linearGradient id="s1" x1="0%" x2="100%"><stop offset="0%" stop-color="#9945FF"/><stop offset="50%" stop-color="#14F195"/><stop offset="100%" stop-color="#00C2FF"/></linearGradient></defs><path d="M5 7l3-3h11l-3 3H5zm0 5l3-3h11l-3 3H5zm0 5l3-3h11l-3 3H5z" fill="url(#s1)"/></svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-1">
+                    <span class="font-bold text-ink text-sm">Solana</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="#1e9bff"><path d="M12 2L9 6 4 5l-1 5 3 4-3 4 1 5 5-1 3 4 3-4 5 1 1-5-3-4 3-4-1-5-5 1z"/></svg>
+                  </div>
+                  <div class="flex items-center gap-1.5 text-[11px] mt-0.5">
+                    <span class="text-muted">$86.60</span>
+                    <span class="text-emerald-500 font-semibold">+2.83%</span>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="font-bold text-ink text-sm">$4,521.40</div>
+                  <div class="text-[11px] text-muted">52.21 SOL</div>
+                </div>
+              </div>
+              <!-- USDC -->
+              <div class="ph-card px-3 py-2.5 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-sky flex items-center justify-center">
+                  <span class="text-white font-black text-xs">$</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="font-bold text-ink text-sm">USDC</div>
+                  <div class="text-[11px] text-muted">$1.00</div>
+                </div>
+                <div class="text-right">
+                  <div class="font-bold text-ink text-sm">$1,847.00</div>
+                  <div class="text-[11px] text-muted">1,847 USDC</div>
+                </div>
+              </div>
+              <!-- SEED -->
+              <div class="ph-card px-3 py-2.5 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-sky/20 flex items-center justify-center">
+                  <img src="assets/logo.png" alt="SEED" class="w-6 h-6"/>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="font-bold text-ink text-sm">SEED</div>
+                  <div class="flex items-center gap-1.5 text-[11px] mt-0.5">
+                    <span class="text-muted">$0.0038</span>
+                    <span class="text-emerald-500 font-semibold">+12.47%</span>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="font-bold text-ink text-sm">$374.43</div>
+                  <div class="text-[11px] text-muted">98,032 SEED</div>
+                </div>
+              </div>
+            </div>
+            <!-- bottom nav -->
+            <div class="mt-auto mx-5 mb-5 ph-card px-4 py-2 flex items-center justify-between">
+              <div class="w-9 h-9 rounded-full bg-sky flex items-center justify-center">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>
+              </div>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a2a5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v16M17 4v16M3 8l4-4 4 4M21 16l-4 4-4-4"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a2a5e" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2.1-1.6-2-3.5-2.5 1a7 7 0 0 0-1.8-1L14 3h-4l-.7 2.9a7 7 0 0 0-1.8 1l-2.5-1-2 3.5L5.1 11a7 7 0 0 0-.1 1 7 7 0 0 0 .1 1l-2.1 1.6 2 3.5 2.5-1a7 7 0 0 0 1.8 1L10 21h4l.7-2.9a7 7 0 0 0 1.8-1l2.5 1 2-3.5-2.1-1.6c.1-.4.1-.7.1-1z"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- right text -->
+      <div class="order-1 md:order-2">
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-ink leading-tight">Your Privacy.<br/>Your Rules.</h2>
+        <p class="mt-5 text-base md:text-lg text-inkSoft max-w-md">Lightning-fast Solana transactions, built around your passkey. Send, swap, and stay private — all in one tap.</p>
+        <div class="mt-7 grid grid-cols-2 gap-y-3 max-w-md text-base font-semibold text-ink">
+          <span class="check">Private</span>
+          <span class="check">Gasless</span>
+          <span class="check">Simple</span>
+          <span class="check">Fast</span>
+        </div>
+        <a href="https://tally.so/r/Pd8vx5" target="_blank" rel="noopener" class="btn-primary mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold">
+          Get early access
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- waitlist cta -->
+  <section id="waitlist" class="py-24">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="bg-card rounded-3xl card-shadow p-10 md:p-14 text-center relative overflow-hidden">
+        <div class="doodle" style="top: 24px; left: 8%;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="#ff6b3d"><path d="M13.5 0L6 14l3-1v9l8-13-3 1V0z"/></svg>
+        </div>
+        <div class="doodle" style="bottom: 24px; right: 10%; transform: rotate(-15deg);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#facc15"><rect x="4" y="10" width="16" height="11" rx="2"/></svg>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-black tracking-tight text-ink">Explore Seedless</h2>
+        <p class="mt-3 text-inkSoft text-base md:text-lg max-w-md mx-auto">Live in private mainnet beta. 100+ on the waitlist in 8 days. Get a spot before public launch.</p>
+        <a href="https://tally.so/r/Pd8vx5" target="_blank" rel="noopener" class="btn-primary mt-7 inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold">
+          Join Waitlist
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer class="border-t border-line">
+    <div class="max-w-6xl mx-auto px-6 py-14 grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
+      <div class="col-span-2 md:col-span-1">
+        <div class="flex items-center gap-2">
+          <img src="assets/logo.png" alt="Seedless" class="w-7 h-7 rounded-lg" />
+          <span class="font-bold text-base">Seedless</span>
+        </div>
+        <p class="mt-3 text-xs text-muted max-w-[14rem]">Simple and private passkey wallet on Solana.</p>
+        <p class="mt-3 text-xs text-muted">© 2026 Seedless Labs Inc.</p>
+      </div>
+      <div>
+        <p class="font-bold text-ink mb-3">Wallet</p>
+        <ul class="space-y-2 text-inkSoft">
+          <li><a href="#features" class="hover:text-ink">Features</a></li>
+          <li><a href="https://tally.so/r/Pd8vx5" target="_blank" rel="noopener" class="hover:text-ink">Join Waitlist</a></li>
+          <li><a href="https://t.me/+ShXX2hovQH9hMGU0" target="_blank" rel="noopener" class="hover:text-ink">Beta Community</a></li>
+        </ul>
+      </div>
+      <div id="seed">
+        <p class="font-bold text-ink mb-3">$SEED</p>
+        <ul class="space-y-2 text-inkSoft">
+          <li><a href="https://dexscreener.com/solana/FYt532fCsCuoHd9aaX5QN7pZLUTiSXwEjhBmZijgBAGS" target="_blank" rel="noopener" class="hover:text-ink">Chart</a></li>
+          <li><a href="https://bags.fm/launch/FYt532fCsCuoHd9aaX5QN7pZLUTiSXwEjhBmZijgBAGS" target="_blank" rel="noopener" class="hover:text-ink">Buy on Bags</a></li>
+          <li><a href="https://www.coingecko.com/en/coins/seedless-wallet" target="_blank" rel="noopener" class="hover:text-ink">CoinGecko</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-bold text-ink mb-3">Socials</p>
+        <ul class="space-y-2 text-inkSoft">
+          <li><a href="https://x.com/seedless_wallet" target="_blank" rel="noopener" class="hover:text-ink">X (@seedless_wallet)</a></li>
+          <li><a href="https://t.me/+ShXX2hovQH9hMGU0" target="_blank" rel="noopener" class="hover:text-ink">Telegram</a></li>
+          <li><a href="https://github.com/seedless-labs" target="_blank" rel="noopener" class="hover:text-ink">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
