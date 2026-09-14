@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://seedlesslabs.xyz/sitemap.xml
+Sitemap: https://www.seedlesslabs.xyz/sitemap.xml
