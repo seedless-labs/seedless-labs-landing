@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /claim
 
 Sitemap: https://www.seedlesslabs.xyz/sitemap.xml

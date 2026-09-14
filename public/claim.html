@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collect your money | Seedless</title>
+  <meta name="description" content="Someone sent you money on Seedless. Open it in the Seedless app to collect it." />
+  <!-- The link's secret lives in the URL fragment. Browsers never send a
+       fragment to a server, and no-referrer stops this page's address leaking
+       to the font host. This page is never indexed. -->
+  <meta name="referrer" content="no-referrer" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#00AEFF" />
+  <meta property="og:site_name" content="Seedless" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Someone sent you money on Seedless" />
+  <meta property="og:description" content="Tap to collect it in the Seedless app." />
+  <meta property="og:image" content="https://www.seedlesslabs.xyz/assets/og.png" />
+  <meta property="og:image:width" content="2400" />
+  <meta property="og:image:height" content="1260" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Someone sent you money on Seedless" />
+  <meta name="twitter:description" content="Tap to collect it in the Seedless app." />
+  <meta name="twitter:image" content="https://www.seedlesslabs.xyz/assets/og.png" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css" />
+  <style>
+    body{min-height:100vh;display:flex;flex-direction:column}
+    .claim{flex:1;display:flex;align-items:center;justify-content:center;padding:56px 20px;
+      background:linear-gradient(180deg,#009CEB 0%,#00AEFF 55%,#62CCFF 100%);position:relative;overflow:hidden}
+    .claim::before{content:"";position:absolute;inset:0;opacity:.14;mix-blend-mode:overlay;pointer-events:none;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+    .card{position:relative;width:100%;max-width:440px;background:#fff;border-radius:28px;padding:36px 28px;text-align:center;box-shadow:0 30px 60px -24px rgba(0,40,80,.45)}
+    .claim-coin{width:84px;height:84px;margin:0 auto;border-radius:50%;background:var(--gold);color:#7A5200;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:48px;box-shadow:inset 0 -6px 0 rgba(0,0,0,.08)}
+    .card h1{font-size:clamp(30px,7vw,38px);margin-top:22px}
+    .card p{color:var(--slate);margin-top:12px}
+    .steps{list-style:none;text-align:left;margin:26px 0 0;display:flex;flex-direction:column;gap:12px;counter-reset:s}
+    .steps li{display:flex;gap:12px;align-items:flex-start;font-size:15px}
+    .steps li::before{counter-increment:s;content:counter(s);flex:none;width:26px;height:26px;border-radius:50%;background:var(--sky);color:var(--blue-ink);display:grid;place-items:center;font-weight:600;font-size:13px}
+    .cta{display:flex;flex-direction:column;gap:10px;margin-top:28px}
+    .cta .btn{width:100%}
+    .small{font-size:13px;color:var(--slate);margin-top:18px}
+    .warn{background:#FFF6DB;color:#6B4E00;border-radius:14px;padding:12px 14px;font-size:13px;margin-top:20px;text-align:left}
+    [hidden]{display:none!important}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="wrap">
+      <a class="brand" href="/"><img src="/assets/logo.png" alt="" />Seedless</a>
+      <a class="btn btn-night" href="https://t.me/seedless_users" target="_blank" rel="noopener noreferrer">Get early access</a>
+    </div>
+  </nav>
+
+  <main class="claim">
+    <div class="card" id="ok" hidden>
+      <div class="claim-coin" aria-hidden="true">$</div>
+      <h1 class="display">Someone sent you money</h1>
+      <p>It's waiting for you in Seedless, a money app for people who get paid in dollars.</p>
+      <ol class="steps">
+        <li><span>Get Seedless on your phone and sign in with your face or fingerprint.</span></li>
+        <li><span>Come back to this link and tap <b>Open in Seedless</b>.</span></li>
+        <li><span>Tap <b>Collect it</b>. The money lands in your balance.</span></li>
+      </ol>
+      <div class="cta">
+        <a class="btn btn-blue" id="open" href="#">Open in Seedless</a>
+        <a class="btn btn-night" href="https://t.me/seedless_users" target="_blank" rel="noopener noreferrer">Get Seedless</a>
+      </div>
+      <p class="small">Seedless launches on Android on 24 September. Until then, the Seedless community on Telegram has the app.</p>
+      <div class="warn">Keep this link to yourself. Whoever opens it in Seedless first collects the money.</div>
+    </div>
+
+    <div class="card" id="bad" hidden>
+      <h1 class="display">This link looks incomplete</h1>
+      <p>Part of it may have been cut off when it was sent. Ask the person who sent it to share the whole link again.</p>
+      <div class="cta"><a class="btn btn-night" href="/">What is Seedless?</a></div>
+    </div>
+  </main>
+
+  <script>
+    // Read the secret from the fragment, validate its shape, and hand it to the
+    // app only when the person taps. It is never sent anywhere: no request made
+    // by this page includes it. The fragment stays in the address bar on
+    // purpose: phones reload background tabs, and someone coming back after
+    // installing the app must still find a working button.
+    (function () {
+      var frag = (location.hash || '').slice(1);
+      var valid = /^(v1|p1)\.[A-Za-z0-9_-]{86}$/.test(frag);
+      var ok = document.getElementById('ok');
+      var bad = document.getElementById('bad');
+      if (!valid) { bad.hidden = false; return; }
+      ok.hidden = false;
+      document.getElementById('open').addEventListener('click', function (e) {
+        e.preventDefault();
+        window.location.href = 'seedless://claim#' + frag;
+      });
+    })();
+  </script>
+</body>
+</html>
