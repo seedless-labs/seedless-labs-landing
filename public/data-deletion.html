@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Deletion | Seedless</title>
-  <meta name="description" content="How to delete your data from Seedless — the money app for people who get paid in dollars." />
+  <meta name="description" content="How to delete your Seedless data on your phone, your passkey, and the payout data we hold." />
   <link rel="canonical" href="https://www.seedlesslabs.xyz/data-deletion" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta name="theme-color" content="#00AEFF" />
@@ -13,7 +13,7 @@
   <meta property="og:locale" content="en_NG" />
   <meta property="og:url" content="https://www.seedlesslabs.xyz/data-deletion" />
   <meta property="og:title" content="Data Deletion | Seedless" />
-  <meta property="og:description" content="How to delete your data from Seedless — the money app for people who get paid in dollars." />
+  <meta property="og:description" content="How to delete your Seedless data on your phone, your passkey, and the payout data we hold." />
   <meta property="og:image" content="https://www.seedlesslabs.xyz/assets/og.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="2400" />
@@ -22,7 +22,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@seedless_wallet" />
   <meta name="twitter:title" content="Data Deletion | Seedless" />
-  <meta name="twitter:description" content="How to delete your data from Seedless — the money app for people who get paid in dollars." />
+  <meta name="twitter:description" content="How to delete your Seedless data on your phone, your passkey, and the payout data we hold." />
   <meta name="twitter:image" content="https://www.seedlesslabs.xyz/assets/og.png" />
   <link rel="icon" href="/favicon.ico" sizes="32x32" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -32,121 +32,68 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.seedlesslabs.xyz/#org","name":"Seedless Labs","url":"https://www.seedlesslabs.xyz/","logo":"https://www.seedlesslabs.xyz/icon-512.png","sameAs":["https://x.com/seedless_wallet","https://github.com/seedless-labs","https://t.me/seedless_users"]},{"@type":"WebSite","@id":"https://www.seedlesslabs.xyz/#website","name":"Seedless","url":"https://www.seedlesslabs.xyz/","publisher":{"@id":"https://www.seedlesslabs.xyz/#org"},"inLanguage":"en"}]}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/tailwind.css" />
-  <style>
-    html, body { background: #000; }
-    body { font-family: 'Inter', system-ui, sans-serif; color: #fff; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-    .accent { color: #00aeff; }
-    .btn-primary { background: #00aeff; color: #000; transition: transform .15s, box-shadow .15s; }
-    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 14px 36px -10px rgba(0,174,255,0.5); }
-    .legal h2 { color:#fff; font-weight:700; font-size:1.2rem; letter-spacing:-0.01em; margin-top:2.25rem; margin-bottom:.6rem; }
-    .legal p, .legal li { color:#a8b3c7; line-height:1.75; margin-bottom:.85rem; }
-    .legal a { color:#00aeff; text-decoration:none; }
-    .legal a:hover { text-decoration:underline; }
-    .legal ul { list-style:disc; padding-left:1.3rem; margin-bottom:.85rem; }
-    .legal ol { list-style:decimal; padding-left:1.3rem; margin-bottom:.85rem; }
-    .legal li { margin-bottom:.5rem; }
-    .legal strong { color:#fff; font-weight:600; }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css" />
 </head>
-<body class="min-h-screen">
+<body>
 
-  <!-- header -->
-  <header class="w-full sticky top-0 z-30">
-    <div class="absolute inset-0 bg-black/80 backdrop-blur-xl border-b border-line"></div>
-    <div class="relative max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="/" class="flex items-center gap-2">
-        <img src="assets/logo.png" alt="Seedless" class="w-9 h-9 rounded-xl" />
-        <span class="font-bold text-lg tracking-tight">Seedless</span>
-      </a>
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-inkSoft">
-        <a href="/#features" class="hover:text-white">Features</a>
-        <a href="/#ecosystem" class="hover:text-white">Ecosystem</a>
-        <a href="/#seed" class="hover:text-white">$SEED</a>
-        <a href="https://t.me/+ShXX2hovQH9hMGU0" target="_blank" rel="noopener" class="hover:text-white">Community</a>
-      </nav>
-      <a href="https://t.me/seedless_users" target="_blank" rel="noopener" class="btn-primary px-5 py-2.5 rounded-full text-sm font-bold">Get early access</a>
+  <nav class="nav">
+    <div class="wrap">
+      <a class="brand" href="/"><img src="assets/logo.png" alt="" />Seedless</a>
+      <div class="links">
+        <a href="/how-it-works">How it works</a>
+        <a href="/features">What you can do</a>
+        <a href="/fees">Fees</a>
+        <a href="/faq">FAQ</a>
+      </div>
+      <a class="btn btn-night" href="https://t.me/seedless_users" target="_blank" rel="noopener">Get early access</a>
     </div>
-  </header>
+  </nav>
 
-  <!-- content -->
-  <main class="legal max-w-3xl mx-auto px-6 pt-16 pb-24">
-    <h1 class="text-4xl sm:text-5xl font-black tracking-tight leading-[1.02]">Data <span class="accent">Deletion</span></h1>
-    <p class="mt-3 text-sm text-mute">Last updated: July 3, 2026</p>
+  <main class="legal">
+    <div class="wrap legal-wrap">
+      <p class="eyebrow">Legal</p>
+      <h1 class="display">Data Deletion</h1>
+<p class="updated">Last updated: 14 September 2026</p>
+<p>This page explains how to delete your data from Seedless, the money app published by Seedless Labs, Inc. and its affiliated operating entity Seedless Labs Limited.</p>
 
-    <div class="mt-10">
-      <p>This page explains how to delete your data from <strong>Seedless</strong>, the non-custodial Solana wallet published by Seedless Labs, Inc. and its affiliated operating entity Seedless Labs Limited (together, "Seedless Labs").</p>
+<h2>Data on your phone</h2>
+<p>Seedless keeps your account data on your phone, in its secure storage.</p>
+<ol>
+<li><strong>Sign out:</strong> open Seedless, go to <strong>Settings</strong> and tap <strong>Sign out</strong>. This removes your active session from the phone. Your passkey is not affected.</li>
+<li><strong>Delete everything on the phone:</strong> uninstall Seedless. On Android, this deletes all Seedless data on the device, including the keys in its secure storage.</li>
+</ol>
+<div class="callout"><strong>Before you uninstall, move your money out of anything that lives only on this phone.</strong> Burner addresses, sends with a link that nobody has collected yet, and your private balance are secured by keys stored only on this device. Once the app is deleted, nobody can recover them, including us.</div>
 
-      <p>Seedless is a self-custody wallet. It has no user accounts, no username or password, and no server that stores your personal data. Your wallet keys are created and held on your own device in hardware-backed secure storage. Because of this, you are always in full control of your data and can delete it yourself at any time.</p>
+<h2>Your passkey</h2>
+<p>Your Seedless passkey is saved in your Apple or Google account's password manager. To delete it, open Google Password Manager or iCloud Keychain (Passwords on iPhone), find the Seedless passkey, and delete it. Money held by that account can only be reached with the passkey, so move it out first.</p>
 
-      <h2>How to delete your data</h2>
-      <p>All Seedless data lives on your device. To permanently delete it:</p>
-      <ol>
-        <li>Open the Seedless app and go to <strong>Settings</strong>.</li>
-        <li>Tap <strong>Delete wallet</strong> and confirm. This removes your wallet keys and all locally stored wallet data from the device.</li>
-        <li>To remove everything at once, <strong>uninstall the app</strong>. Uninstalling deletes all Seedless data on the device, including the encrypted key material held in your device's secure storage.</li>
-      </ol>
+<h2>Data we hold</h2>
+<p>If you have used bank payouts, our payouts service holds your account address, the email or phone number linked to our payments partner, your verification status, and your payout history. To have it deleted, email <a href="mailto:francis@seedlesslabs.xyz">francis@seedlesslabs.xyz</a> with the subject "Delete my data" and your Seedless account address. We will delete it within 30 days, except records the law requires us to keep, and tell you when it is done.</p>
+<p>Our payments partner holds its own records of your identity verification and payouts. Tell us in the same email and we will pass your deletion request to the partner.</p>
+<p>If you joined our old website waitlist, the same email request deletes that too.</p>
 
-      <h2>What is deleted</h2>
-      <ul>
-        <li>Your wallet keys and passkey references (stored only on your device)</li>
-        <li>Local settings, address book entries, and cached balances or transaction history</li>
-      </ul>
+<h2>What cannot be deleted</h2>
+<p>Transactions on the Solana blockchain are public and permanent. No one, including Seedless, can delete on-chain history.</p>
 
-      <h2>What cannot be deleted</h2>
-      <ul>
-        <li><strong>On-chain data.</strong> Transactions you have broadcast to the Solana blockchain are part of a public, permanent ledger that Seedless does not own or control. No wallet, including Seedless, can delete on-chain history.</li>
-      </ul>
+<h2>Contact</h2>
+<p><a href="mailto:francis@seedlesslabs.xyz">francis@seedlesslabs.xyz</a></p>
 
-      <h2>Data retention</h2>
-      <p>Seedless Labs does not operate a server that stores your personal or wallet data, so there is nothing on our side to retain or delete. Wallet address and transaction data are transmitted to third-party Solana infrastructure only in real time to carry out the actions you request, and we keep no copies.</p>
-
-      <h2>Contact</h2>
-      <p>If you have questions about deleting your data, contact us at <a href="mailto:francis@seedlesslabs.xyz">francis@seedlesslabs.xyz</a>.</p>
     </div>
   </main>
 
-  <!-- footer -->
-  <footer class="border-t border-line">
-    <div class="max-w-6xl mx-auto px-6 py-14 grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
-      <div class="col-span-2 md:col-span-1">
-        <div class="flex items-center gap-2">
-          <img src="assets/logo.png" alt="Seedless" class="w-8 h-8 rounded-lg" />
-          <span class="font-bold text-base">Seedless</span>
+  <footer>
+    <div class="wrap">
+      <div class="fgrid">
+        <div>
+          <a class="brand" href="/"><img src="assets/logo.png" alt="" />Seedless</a>
+          <p style="color:var(--slate);margin-top:12px;max-width:260px">The money app for people who get paid in dollars.</p>
         </div>
-        <p class="mt-3 text-xs text-mute max-w-[14rem]">The money app for people who get paid in dollars</p>
+        <div><h4>Product</h4><ul><li><a href="/how-it-works">How it works</a></li><li><a href="/features">What you can do</a></li><li><a href="/fees">Fees</a></li><li><a href="/faq">FAQ</a></li></ul></div>
+        <div><h4>Company</h4><ul><li><a href="https://x.com/seedless_wallet" target="_blank" rel="noopener">X</a></li><li><a href="https://t.me/+ShXX2hovQH9hMGU0" target="_blank" rel="noopener">Telegram</a></li><li><a href="https://github.com/seedless-labs" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+        <div><h4>Legal</h4><ul><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/security">Security</a></li><li><a href="/data-deletion">Data deletion</a></li></ul></div>
       </div>
-      <div>
-        <p class="font-bold mb-3">Product</p>
-        <ul class="space-y-2 text-inkSoft">
-          <li><a href="/#features" class="hover:text-white">Features</a></li>
-          <li><a href="/#ecosystem" class="hover:text-white">Ecosystem</a></li>
-          <li><a href="https://t.me/seedless_users" target="_blank" rel="noopener" class="hover:text-white">Get early access</a></li>
-        </ul>
-      </div>
-      <div>
-        <p class="font-bold mb-3">Legal</p>
-        <ul class="space-y-2 text-inkSoft">
-          <li><a href="/privacy" class="hover:text-white">Privacy</a></li>
-          <li><a href="/terms" class="hover:text-white">Terms</a></li>
-          <li><a href="/data-deletion" class="hover:text-white">Data Deletion</a></li>
-          <li><a href="/security" class="hover:text-white">Security</a></li>
-        </ul>
-      </div>
-      <div>
-        <p class="font-bold mb-3">Socials</p>
-        <ul class="space-y-2 text-inkSoft">
-          <li><a href="https://x.com/seedless_wallet" target="_blank" rel="noopener" class="hover:text-white">X (@seedless_wallet)</a></li>
-          <li><a href="https://t.me/+ShXX2hovQH9hMGU0" target="_blank" rel="noopener" class="hover:text-white">Telegram</a></li>
-          <li><a href="https://github.com/seedless-labs" target="_blank" rel="noopener" class="hover:text-white">GitHub</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="border-t border-line">
-      <div class="max-w-6xl mx-auto px-6 py-6 text-xs text-mute">
-        <p>&copy; 2026 Seedless Labs, Inc. &amp; Seedless Labs Limited</p>
-      </div>
+      <div class="fine"><span>© 2026 Seedless Labs, Inc. &amp; Seedless Labs Limited</span><span>Seedless is a financial technology app, not a bank.</span></div>
     </div>
   </footer>
 
