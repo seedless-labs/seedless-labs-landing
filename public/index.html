@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Seedless — The Money App for People Paid in Dollars</title>
-  <meta name="description" content="A money app for people who get paid in dollars. Pay any Nigerian bank, send to anyone, hold stocks. No seed phrase. Launching September 24." />
-  <meta property="og:title" content="Seedless — The Money App for People Paid in Dollars" />
-  <meta property="og:description" content="Get paid in dollars. Spend in naira. No seed phrase, no gas." />
+  <title>Seedless — Get Paid in Dollars. Spend in Naira.</title>
+  <meta name="description" content="Seedless is a money app for people who get paid in dollars. Pay any Nigerian bank, send money to anyone, hold stocks. No seed phrase. Launching September 24." />
+  <meta property="og:title" content="Seedless — Get Paid in Dollars. Spend in Naira." />
+  <meta property="og:description" content="The money app for people who get paid in dollars. Launching September 24." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://seedlesslabs.xyz" />
   <meta property="og:image" content="https://seedlesslabs.xyz/assets/og.png" />
@@ -15,355 +15,378 @@
   <meta property="og:image:alt" content="Seedless — get paid in dollars, spend in naira" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@seedless_wallet" />
-  <meta name="twitter:image" content="https://seedlesslabs.xyz/assets/og.png" />
-  <meta name="theme-color" content="#000000" />
-  <link rel="canonical" href="https://seedlesslabs.xyz" />
-  <link rel="icon" type="image/png" href="favicon.png" />
+  <meta name="theme-color" content="#00AEFF" />
+  <link rel="icon" href="favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/tailwind.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    html, body { background: #000; }
-    body { font-family: 'Inter', system-ui, sans-serif; color: #fff; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-    .accent { color: #00aeff; }
-    .btn-primary {
-      background: #00aeff; color: #000;
-      transition: transform .15s, box-shadow .15s;
-      box-shadow: 0 0 0 0 rgba(0,174,255,0);
+    :root{
+      --blue:#00AEFF; --blue-deep:#0087E0; --ink:#0A0A0A; --slate:#5B5B5B; --line:#ECECEC;
+      --paper:#FFFFFF; --mist:#F7F7F5; --sand:#F3F1EC; --sky:#EAF6FF;
+      --gold:#FFC53D; --green:#34C77B; --ember:#FF5A1F;
+      --p-yellow:#FFE9A8; --p-peach:#FFD3BF; --p-green:#CDEFD9; --p-sky:#CFEBFF; --p-lilac:#E7DCFF;
+      --display:"Bricolage Grotesque", Inter, system-ui, sans-serif;
+      --body:Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --r-lg:28px; --r-md:18px;
     }
-    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 14px 36px -10px rgba(0,174,255,0.5); }
-    .btn-ghost { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.18); transition: all .15s; }
-    .btn-ghost:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.3); }
-    .partner-chip {
-      display: inline-flex; align-items: center; gap: 9px;
-      padding: 7px 14px 7px 7px;
-      background: rgba(255,255,255,0.025);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 999px;
-      font-size: 13px; font-weight: 600;
-      color: #fff;
-      transition: all .15s;
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--body);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;line-height:1.55}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .wrap{max-width:1180px;margin:0 auto;padding-inline:24px}
+    .display{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:.95}
+    .eyebrow{font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--slate)}
+    .btn{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:15px;padding:14px 24px;border-radius:999px;transition:transform .15s ease, box-shadow .15s ease}
+    .btn:hover{transform:translateY(-2px)}
+    .btn:focus-visible,a:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+    .btn-ink{background:var(--ink);color:#fff}
+    .btn-white{background:#fff;color:var(--ink);box-shadow:0 10px 30px rgba(0,60,110,.18)}
+    .btn-blue{background:var(--blue);color:#fff}
+
+    /* ---------- nav ---------- */
+    .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,.05)}
+    .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+    .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.03em}
+    .brand img{width:34px;height:34px;border-radius:10px}
+    .links{display:flex;gap:32px;font-size:14px;font-weight:500;color:var(--slate)}
+    .links a:hover{color:var(--ink)}
+    @media (max-width:760px){.links{display:none}}
+
+    /* ---------- hero (textured sky, our blue) ---------- */
+    .hero{position:relative;overflow:hidden;color:#fff;
+      background:
+        radial-gradient(1200px 520px at 50% -10%, rgba(255,255,255,.35), transparent 60%),
+        linear-gradient(180deg,#0098F0 0%, #00AEFF 45%, #6FD2FF 100%);}
+    .hero::before{content:"";position:absolute;inset:0;opacity:.18;mix-blend-mode:overlay;pointer-events:none;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+    .hero .wrap{position:relative;padding-block:84px 0;text-align:center}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);padding:8px 16px;border-radius:999px;font-size:13px;font-weight:600}
+    .badge i{width:8px;height:8px;border-radius:50%;background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.25)}
+    .hero h1{font-size:clamp(48px,9vw,120px);margin-top:24px}
+    .hero h1 span{display:block;color:#0A2540}
+    .hero p.lede{max-width:560px;margin:22px auto 0;font-size:clamp(16px,2vw,19px);font-weight:500;color:rgba(255,255,255,.94)}
+    .hero .cta{margin-top:30px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+    /* the money flow (resolva 30%) */
+    .flow{position:relative;max-width:980px;height:420px;margin:56px auto 0}
+    .flow svg{position:absolute;inset:0;width:100%;height:100%}
+    .obj{position:absolute;filter:drop-shadow(0 22px 30px rgba(0,50,100,.25))}
+    .coin{left:4%;top:120px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFE08A,#FFC53D 60%,#E6A500);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:72px;color:#9A6A00;animation:bob 5s ease-in-out infinite}
+    .note{right:4%;top:118px;width:190px;height:122px;border-radius:18px;background:linear-gradient(135deg,#48D98C,#27B26A);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:70px;color:#fff;transform:rotate(-7deg);animation:bob 5s ease-in-out -2.5s infinite}
+    .note::after{content:"";position:absolute;inset:12px;border:2px solid rgba(255,255,255,.45);border-radius:10px}
+    .phone{position:absolute;left:50%;top:10px;width:236px;height:460px;margin-left:-118px;border-radius:40px;background:#0A0A0A;padding:10px;box-shadow:0 40px 80px rgba(0,40,90,.35)}
+    .screen{width:100%;height:100%;border-radius:31px;background:#fff;color:var(--ink);padding:26px 18px;text-align:left;overflow:hidden}
+    .screen .hi{font-size:12px;color:var(--slate);font-weight:500}
+    .screen .bal{font-family:var(--display);font-weight:800;font-size:34px;letter-spacing:-.03em;margin-top:4px}
+    .screen .acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+    .screen .act{background:var(--sky);border-radius:14px;padding:10px;font-size:11px;font-weight:600}
+    .screen .act b{display:block;font-size:16px;color:var(--blue-deep)}
+    .tx{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+    .row{display:flex;justify-content:space-between;align-items:center;background:var(--mist);border-radius:12px;padding:10px;font-size:11px;font-weight:600}
+    .chip{font-size:10px;font-weight:700;padding:4px 8px;border-radius:999px}
+    .chip.sent{background:#FFF1CC;color:#8A6200;animation:status 6s ease-in-out infinite}
+    .chip.paid{background:#D8F5E5;color:#137A45}
+    @keyframes status{0%,45%{background:#FFF1CC;color:#8A6200}55%,100%{background:#D8F5E5;color:#137A45}}
+    @keyframes bob{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-12px) rotate(var(--r,0deg))}}
+    .note{--r:-7deg}
+    .dash{stroke-dasharray:8 14;animation:dash 2.4s linear infinite}
+    @keyframes dash{to{stroke-dashoffset:-44}}
+    @media (max-width:760px){
+      .flow{height:430px}
+      .coin{width:86px;height:86px;font-size:46px;left:0;top:30px}
+      .note{width:120px;height:78px;font-size:44px;right:0;top:40px}
+      .phone{top:120px;width:200px;height:390px;margin-left:-100px}
     }
-    .partner-chip:hover { background: rgba(0,174,255,0.06); border-color: rgba(0,174,255,0.3); }
-    .partner-chip img, .partner-chip .dot { width: 22px; height: 22px; border-radius: 999px; flex-shrink: 0; object-fit: cover; }
-    .stat-quote { border-left: 2px solid #00aeff; padding-left: 12px; }
-    .pill-no { display: inline-flex; align-items: center; padding: 10px 18px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 999px; font-size: 14px; font-weight: 600; }
-    .pill-no .neg { color: #00aeff; font-weight: 700; margin-right: 6px; }
-    .card { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06); border-radius: 24px; }
-    .check::before { content: "\2713"; color: #00aeff; font-weight: 800; margin-right: 0.55rem; }
-    /* phone */
-    .phone-shell {
-      background: linear-gradient(160deg, #15192a 0%, #050609 100%);
-      box-shadow: 0 40px 100px -30px rgba(0,174,255,0.18), 0 30px 80px -30px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.08);
-    }
+    .ground{height:120px;background:linear-gradient(180deg,transparent,#fff 92%);margin-top:-120px;position:relative}
+
+    /* ---------- built with ---------- */
+    .built{padding:28px 0 64px;text-align:center}
+    .logos{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:18px}
+    .logos span{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:999px;padding:8px 16px 8px 8px;font-size:14px;font-weight:600;background:#fff}
+    .logos img{width:28px;height:28px;border-radius:50%}
+
+    /* ---------- who (evolution 30%) ---------- */
+    section{padding-block:96px}
+    .h2{font-size:clamp(36px,5.2vw,64px)}
+    .who .chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+    .who .chips span{font-family:var(--display);font-weight:700;font-size:clamp(18px,2.4vw,26px);padding:14px 24px;border-radius:999px;letter-spacing:-.02em}
+
+    /* ---------- how it works ---------- */
+    .how{background:var(--mist)}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+    @media (max-width:860px){.steps{grid-template-columns:1fr}}
+    .step{background:#fff;border-radius:var(--r-lg);padding:30px;border:1px solid var(--line)}
+    .step .n{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:22px;color:#fff;background:var(--blue)}
+    .step h3{font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:-.02em;margin-top:20px}
+    .step p{color:var(--slate);margin-top:8px}
+
+    /* ---------- what you can do (paj 40%: list beside phone) ---------- */
+    .do .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;margin-top:40px}
+    @media (max-width:900px){.do .grid{grid-template-columns:1fr}}
+    .feat{border-top:1px solid var(--line)}
+    .feat details{border-bottom:1px solid var(--line);padding:22px 0}
+    .feat summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:var(--display);font-weight:700;font-size:24px;letter-spacing:-.02em}
+    .feat summary::-webkit-details-marker{display:none}
+    .feat summary::after{content:"+";font-family:var(--body);font-weight:400;font-size:28px;color:var(--slate);transition:transform .2s}
+    .feat details[open] summary::after{transform:rotate(45deg)}
+    .feat p{color:var(--slate);margin-top:10px;max-width:520px}
+    .stage{position:relative;background:var(--sky);border-radius:36px;height:520px;overflow:hidden}
+    .stage .phone{top:40px}
+    .float{position:absolute;display:grid;place-items:center;border-radius:22px;background:#fff;box-shadow:0 18px 40px rgba(0,60,110,.14);font-family:var(--display);font-weight:800;animation:bob 6s ease-in-out infinite}
+    .float.bank{left:8%;top:70%;width:86px;height:86px;font-size:40px}
+    .float.stock{right:7%;top:14%;width:96px;height:64px;font-size:18px;color:#137A45;animation-delay:-3s}
+    .float.plane{right:10%;top:62%;width:70px;height:70px;font-size:32px;animation-delay:-1.5s}
+
+    /* ---------- ticker (paj 40%, our words) ---------- */
+    .ticker{background:var(--ink);padding:26px 0;overflow:hidden}
+    .track{display:flex;gap:16px;width:max-content;animation:scroll 38s linear infinite}
+    .track span{font-family:var(--display);font-weight:800;font-size:clamp(28px,4vw,52px);letter-spacing:-.03em;padding:18px 34px;border-radius:22px;color:var(--ink);white-space:nowrap}
+    @keyframes scroll{to{transform:translateX(-50%)}}
+
+    /* ---------- fees ---------- */
+    .fees .card{margin-top:40px;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+    .fees .r{display:flex;justify-content:space-between;gap:16px;padding:22px 28px;border-bottom:1px solid var(--line);font-weight:500}
+    .fees .r:last-child{border-bottom:0}
+    .fees .r b{font-family:var(--display);font-weight:800;font-size:22px}
+    .fees .r b.free{color:#137A45}
+    .fees .note-line{color:var(--slate);margin-top:14px;font-size:14px}
+
+    /* ---------- faq ---------- */
+    .faq{background:var(--mist)}
+    .faq .list{margin-top:36px;max-width:820px}
+    .faq details{background:#fff;border-radius:var(--r-md);padding:22px 26px;margin-bottom:12px;border:1px solid var(--line)}
+    .faq summary{list-style:none;cursor:pointer;font-weight:600;font-size:18px;display:flex;justify-content:space-between;gap:16px}
+    .faq summary::-webkit-details-marker{display:none}
+    .faq summary::after{content:"+";color:var(--slate);font-size:22px;line-height:1}
+    .faq details[open] summary::after{content:"–"}
+    .faq p{color:var(--slate);margin-top:12px}
+
+    /* ---------- community ---------- */
+    .community{padding:0}
+    .community .panel{margin:96px auto;max-width:1180px;border-radius:36px;overflow:hidden;position:relative;color:#fff;text-align:center;padding:96px 24px;
+      background:linear-gradient(135deg,#0A2540,#0A2540 40%,#004A7A)}
+    .community .moments{position:absolute;inset:0;pointer-events:none}
+    .community .m{position:absolute;background:#fff;color:var(--ink);border-radius:16px;padding:10px 14px;font-size:13px;font-weight:600;box-shadow:0 14px 30px rgba(0,0,0,.25);display:flex;gap:8px;align-items:center;animation:bob 7s ease-in-out infinite}
+    .community .m em{font-style:normal;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:#D8F5E5;color:#137A45}
+    @media (max-width:760px){.community .m{display:none}}
+    .community h2{position:relative;font-size:clamp(34px,5vw,60px)}
+    .community p{position:relative;max-width:520px;margin:16px auto 0;color:rgba(255,255,255,.8)}
+    .community .cta{position:relative;margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+    /* ---------- footer ---------- */
+    footer{border-top:1px solid var(--line);padding:56px 0 40px;font-size:14px}
+    .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+    @media (max-width:760px){.fgrid{grid-template-columns:1fr 1fr}}
+    footer h4{font-size:13px;font-weight:600;margin-bottom:12px}
+    footer ul{list-style:none;display:flex;flex-direction:column;gap:8px;color:var(--slate)}
+    footer a:hover{color:var(--ink)}
+    .fine{margin-top:40px;color:var(--slate);font-size:12px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
   </style>
 </head>
-<body class="min-h-screen">
+<body>
 
-  <!-- header -->
-  <header class="w-full sticky top-0 z-30">
-    <div class="absolute inset-0 bg-black/80 backdrop-blur-xl border-b border-line"></div>
-    <div class="relative max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="/" class="flex items-center gap-2">
-        <img src="assets/logo.png" alt="Seedless" class="w-9 h-9 rounded-xl" />
-        <span class="font-bold text-lg tracking-tight">Seedless</span>
-      </a>
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-inkSoft">
-        <a href="#features" class="hover:text-white">Features</a>
-        <a href="#ecosystem" class="hover:text-white">Ecosystem</a>
-        <a href="#seed" class="hover:text-white">$SEED</a>
-        <a href="https://t.me/+ShXX2hovQH9hMGU0" target="_blank" rel="noopener" class="hover:text-white">Community</a>
-      </nav>
-      <a href="https://t.me/seedless_beta" target="_blank" rel="noopener" class="btn-primary px-5 py-2.5 rounded-full text-sm font-bold">Join the Beta</a>
+  <nav class="nav">
+    <div class="wrap">
+      <a class="brand" href="/"><img src="assets/logo.png" alt="" />Seedless</a>
+      <div class="links">
+        <a href="#how">How it works</a>
+        <a href="#do">What you can do</a>
+        <a href="#fees">Fees</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <a class="btn btn-ink" href="https://t.me/seedless_beta" target="_blank" rel="noopener">Get early access</a>
     </div>
+  </nav>
+
+  <header class="hero">
+    <div class="wrap">
+      <span class="badge"><i></i>Launching September 24</span>
+      <h1 class="display">Get paid in dollars.<span>Spend in naira.</span></h1>
+      <p class="lede">Seedless is the money app for people who get paid in dollars. Pay any Nigerian bank, send money to anyone, and hold stocks, all in one place.</p>
+      <div class="cta">
+        <a class="btn btn-white" href="https://t.me/seedless_beta" target="_blank" rel="noopener">Get early access →</a>
+      </div>
+
+      <div class="flow" aria-hidden="true">
+        <svg viewBox="0 0 980 360" preserveAspectRatio="none">
+          <path class="dash" d="M150 185 C 300 185, 330 185, 420 185" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" opacity=".9"/>
+          <path class="dash" d="M560 185 C 650 185, 680 185, 820 185" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" opacity=".9"/>
+        </svg>
+        <div class="obj coin">$</div>
+        <div class="phone">
+          <div class="screen">
+            <div class="hi">Good morning, Ada</div>
+            <div class="bal">$1,240.00</div>
+            <div class="acts">
+              <div class="act"><b>↗</b>To bank</div>
+              <div class="act"><b>✈</b>Send</div>
+            </div>
+            <div class="tx">
+              <div class="row">GTBank · Rent<span class="chip sent">Sent</span></div>
+              <div class="row">Mum · Opay<span class="chip paid">Paid</span></div>
+              <div class="row">Tesla stock<span class="chip paid">+2.4%</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="obj note">₦</div>
+      </div>
+    </div>
+    <div class="ground"></div>
   </header>
 
-  <!-- hero -->
-  <section class="relative">
-    <div class="max-w-6xl mx-auto px-6 pt-24 pb-20">
-      <div class="text-center max-w-4xl mx-auto">
-        <div class="inline-flex items-center gap-2 px-3 py-1.5 border border-line rounded-full text-xs font-semibold text-inkSoft mb-7" style="background:rgba(0,174,255,0.04);">
-          <span class="w-2 h-2 rounded-full" style="background:#00aeff; box-shadow: 0 0 12px #00aeff;"></span>
-          Launching September 24
-        </div>
-        <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[0.95]">
-          Get Paid in Dollars<br/>
-          <span class="accent">Spend in Naira</span>
-        </h1>
-        <p class="mt-6 sm:mt-7 text-base sm:text-lg md:text-xl text-inkSoft font-medium max-w-xl mx-auto px-2">A money app for people who get paid in dollars. Pay any Nigerian bank, send to anyone, hold stocks. Sign in with your face. We cover the gas</p>
-        <div class="mt-9 flex items-center justify-center gap-3 flex-wrap">
-          <a href="https://t.me/seedless_beta" target="_blank" rel="noopener" class="btn-primary px-7 py-3.5 rounded-full text-sm font-bold inline-flex items-center gap-2">
-            Join the Beta
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <a href="#features" class="btn-ghost px-7 py-3.5 rounded-full text-sm font-semibold">Learn More</a>
-        </div>
-        <div class="mt-12 stat-quote text-left inline-block">
-          <p class="text-sm text-inkSoft"><span class="text-white font-bold">100+</span> signed up in the first 8 days</p>
-        </div>
+  <div class="built wrap">
+    <p class="eyebrow">Built on</p>
+    <div class="logos">
+      <span><img src="assets/partners/solana.jpg" alt="" />Solana</span>
+      <span><img src="assets/partners/jupiter.jpg" alt="" />Jupiter</span>
+      <span><img src="assets/partners/lazorkit.jpg" alt="" />LazorKit</span>
+      <span><img src="assets/partners/umbra.jpg" alt="" />Umbra</span>
+      <span><img src="assets/partners/alchemy.jpg" alt="" />Alchemy</span>
+    </div>
+  </div>
+
+  <section class="who">
+    <div class="wrap">
+      <p class="eyebrow">Who it's for</p>
+      <h2 class="display h2">If your money comes in dollars,<br />Seedless is for you.</h2>
+      <div class="chips">
+        <span style="background:var(--p-yellow)">Freelancers</span>
+        <span style="background:var(--p-sky)">Remote workers</span>
+        <span style="background:var(--p-peach)">Designers</span>
+        <span style="background:var(--p-green)">Developers</span>
+        <span style="background:var(--p-lilac)">Creators</span>
+        <span style="background:var(--p-yellow)">Students</span>
+        <span style="background:var(--p-sky)">Families abroad</span>
       </div>
     </div>
   </section>
 
-  <!-- product visual: phone -->
-  <section class="pb-24">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="flex justify-center">
-        <div class="relative w-[280px] sm:w-[320px] md:w-[360px] rounded-[52px] p-3 phone-shell" style="aspect-ratio: 9/19.5;">
-          <div class="absolute top-3 left-1/2 -translate-x-1/2 w-32 h-7 rounded-b-2xl z-10" style="background:#050609;"></div>
-          <div class="w-full h-full rounded-[42px] overflow-hidden bg-white flex flex-col">
-            <div class="flex justify-between items-center px-6 pt-3 pb-1 text-[11px] font-semibold text-[#0a2a5e]">
-              <span>11:28</span>
-              <div class="flex items-center gap-1.5">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C8.5 4 5.2 5.2 2.7 7.2L4 8.7c2.3-1.8 5.1-2.8 8-2.8s5.7 1 8 2.8l1.3-1.5C18.8 5.2 15.5 4 12 4z"/></svg>
-                <svg width="18" height="10" viewBox="0 0 20 10" fill="none" stroke="currentColor" stroke-width="1"><rect x="0.5" y="0.5" width="16" height="9" rx="2"/><rect x="2" y="2" width="13" height="6" fill="currentColor"/></svg>
+  <section class="how" id="how">
+    <div class="wrap">
+      <p class="eyebrow">How it works</p>
+      <h2 class="display h2">Three steps. No jargon.</h2>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><h3>Sign in with your face</h3><p>No seed phrase, no password, nothing to write down. Your phone keeps you safe.</p></div>
+        <div class="step"><div class="n">2</div><h3>Get paid in dollars</h3><p>Receive dollars from clients, platforms or friends. Your money holds its value.</p></div>
+        <div class="step"><div class="n">3</div><h3>Spend it in naira</h3><p>Pick a bank, see the account name before you send, and the naira lands.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="do" id="do">
+    <div class="wrap">
+      <p class="eyebrow">What you can do</p>
+      <h2 class="display h2">Everything your money needs.</h2>
+      <div class="grid">
+        <div class="feat">
+          <details open><summary>Pay any Nigerian bank</summary><p>Choose a bank, enter the account number, and see who you're paying before you confirm. Type the amount in naira.</p></details>
+          <details><summary>Pay with whatever you hold</summary><p>Short on dollars for a payment? Seedless uses some of your other balance to cover it, and tells you exactly what it used.</p></details>
+          <details><summary>Send money to anyone</summary><p>Send to any account, or share a link with someone who doesn't have Seedless yet. If they never claim it, you get it back.</p></details>
+          <details><summary>Hold stocks</summary><p>Own Tesla, Apple, NVIDIA and more right next to your dollars. When you need naira, sell and send to your bank in one step.</p></details>
+          <details><summary>Earn on your dollars</summary><p>Put your dollars to work and take them out any time. The rate moves with the market.</p></details>
+        </div>
+        <div class="stage" aria-hidden="true">
+          <div class="phone">
+            <div class="screen">
+              <div class="hi">Send to bank</div>
+              <div class="bal">₦250,000</div>
+              <div class="tx">
+                <div class="row">Bank<span>GTBank</span></div>
+                <div class="row">Account<span>0123456789</span></div>
+                <div class="row">Name<span class="chip paid">ADA OKAFOR ✓</span></div>
+                <div class="row">Fee<span>0.5%</span></div>
               </div>
-            </div>
-            <div class="flex justify-between items-center px-5 mt-2">
-              <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:#00aeff;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M3 11h18"/></svg>
-              </div>
-              <div class="w-9 h-9 rounded-full flex items-center justify-center" style="background:#f3f5f9;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0a2a5e" stroke-width="2"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></svg>
-              </div>
-            </div>
-            <div class="text-center mt-6 px-6">
-              <div class="text-[44px] font-black text-[#0a2a5e] tracking-tight leading-none">$6,079<span class="text-3xl">.66</span></div>
-            </div>
-            <div class="flex justify-center gap-3 mt-6 px-6">
-              <div class="flex-1 max-w-[120px] py-4 rounded-2xl flex flex-col items-center gap-1" style="background:#f3f5f9;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0a2a5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-                <span class="text-sm font-semibold text-[#0a2a5e]">Send</span>
-              </div>
-              <div class="flex-1 max-w-[120px] py-4 rounded-2xl flex flex-col items-center gap-1" style="background:#f3f5f9;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0a2a5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-                <span class="text-sm font-semibold text-[#0a2a5e]">Receive</span>
-              </div>
-            </div>
-            <div class="flex gap-2 mt-6 px-5">
-              <div class="px-4 py-1.5 rounded-full text-sm font-bold text-[#0a2a5e]" style="background:#f3f5f9;">Tokens</div>
-              <div class="px-4 py-1.5 text-sm font-bold" style="color:#9ba6bc;">Tools</div>
-            </div>
-            <div class="px-5 mt-3 space-y-2">
-              <div class="px-3 py-2.5 rounded-2xl flex items-center gap-3" style="background:#f3f5f9;">
-                <img src="assets/sol.png" alt="SOL" class="w-9 h-9 rounded-full" />
-                <div class="flex-1 min-w-0">
-                  <div class="flex items-center gap-1">
-                    <span class="font-bold text-[#0a2a5e] text-sm">Solana</span>
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="#00aeff"><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="2" fill="none"/><circle cx="12" cy="12" r="10"/></svg>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <div class="font-bold text-[#0a2a5e] text-sm">$3,883.38</div>
-                  <div class="text-[11px]" style="color:#687991;">52.21 SOL</div>
-                </div>
-              </div>
-              <div class="px-3 py-2.5 rounded-2xl flex items-center gap-3" style="background:#f3f5f9;">
-                <img src="assets/usdc.png" alt="USDC" class="w-9 h-9 rounded-full" />
-                <div class="flex-1 min-w-0">
-                  <div class="font-bold text-[#0a2a5e] text-sm">USD Coin</div>
-                </div>
-                <div class="text-right">
-                  <div class="font-bold text-[#0a2a5e] text-sm">$1,847.00</div>
-                  <div class="text-[11px]" style="color:#687991;">1,847 USDC</div>
-                </div>
-              </div>
-              <div class="px-3 py-2.5 rounded-2xl flex items-center gap-3" style="background:#f3f5f9;">
-                <img src="assets/logo.png" alt="SEED" class="w-9 h-9 rounded-full" />
-                <div class="flex-1 min-w-0">
-                  <div class="font-bold text-[#0a2a5e] text-sm">Seedless</div>
-                </div>
-                <div class="text-right">
-                  <div class="font-bold text-[#0a2a5e] text-sm">$349.28</div>
-                  <div class="text-[11px]" style="color:#687991;">8,000,000 SEED</div>
-                </div>
-              </div>
-            </div>
-            <div class="mt-auto mx-5 mb-5 px-4 py-2 rounded-full flex items-center justify-between" style="background:#f3f5f9;">
-              <div class="w-9 h-9 rounded-full flex items-center justify-center" style="background:#00aeff;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>
-              </div>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a2a5e" stroke-width="2"><path d="M7 4v16M17 4v16M3 8l4-4 4 4M21 16l-4 4-4-4"/></svg>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a2a5e" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/></svg>
+              <div class="act" style="margin-top:16px;background:var(--blue);color:#fff;text-align:center;padding:14px">Pay with Face ID</div>
             </div>
           </div>
+          <div class="float bank">🏦</div>
+          <div class="float stock">TSLA ▲</div>
+          <div class="float plane">✈️</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ecosystem strip -->
-  <section id="ecosystem" class="py-16 border-y border-line">
-    <div class="max-w-6xl mx-auto px-6">
-      <p class="text-center text-xs uppercase tracking-[0.22em] text-mute font-bold mb-2">The Ecosystem Behind Seedless</p>
-      <p class="text-center text-inkSoft text-sm mb-7">Built on Solana. Backed by the best</p>
-      <div class="flex flex-wrap items-center justify-center gap-2.5">
-        <a href="https://www.alchemy.com" target="_blank" rel="noopener" class="partner-chip">
-          <img src="assets/partners/alchemy.jpg" alt="Alchemy"/>Alchemy
-        </a>
-        <a href="https://jup.ag" target="_blank" rel="noopener" class="partner-chip">
-          <img src="assets/partners/jupiter.jpg" alt="Jupiter"/>Jupiter
-        </a>
-        <a href="https://lazor.sh" target="_blank" rel="noopener" class="partner-chip">
-          <img src="assets/partners/lazorkit.jpg" alt="LazorKit"/>LazorKit
-        </a>
-        <a href="https://umbraprivacy.com" target="_blank" rel="noopener" class="partner-chip">
-          <img src="assets/partners/umbra.jpg" alt="Umbra"/>Umbra
-        </a>
-        <a href="https://ika.xyz" target="_blank" rel="noopener" class="partner-chip">
-          <img src="assets/partners/ika.jpg" alt="Ika"/>Ika
-        </a>
-        <a href="https://bags.fm" target="_blank" rel="noopener" class="partner-chip">
-          <img src="assets/partners/bags.jpg" alt="Bags"/>Bags
-        </a>
+  <div class="ticker" aria-hidden="true">
+    <div class="track">
+      <span style="background:var(--p-yellow)">Rent, paid</span>
+      <span style="background:var(--p-sky)">Sent to Mum</span>
+      <span style="background:var(--p-peach)">School fees, done</span>
+      <span style="background:var(--p-green)">Paid my tailor</span>
+      <span style="background:var(--p-lilac)">Client paid me</span>
+      <span style="background:var(--p-yellow)">Light bill, sorted</span>
+      <span style="background:var(--p-sky)">Rent, paid</span>
+      <span style="background:var(--p-yellow)">Rent, paid</span>
+      <span style="background:var(--p-sky)">Sent to Mum</span>
+      <span style="background:var(--p-peach)">School fees, done</span>
+      <span style="background:var(--p-green)">Paid my tailor</span>
+      <span style="background:var(--p-lilac)">Client paid me</span>
+      <span style="background:var(--p-yellow)">Light bill, sorted</span>
+      <span style="background:var(--p-sky)">Rent, paid</span>
+    </div>
+  </div>
+
+  <section class="fees" id="fees">
+    <div class="wrap">
+      <p class="eyebrow">What it costs</p>
+      <h2 class="display h2">One price. Half a percent.</h2>
+      <div class="card">
+        <div class="r">Pay a Nigerian bank<b>0.5%</b></div>
+        <div class="r">Swap one currency for another<b>0.5%</b></div>
+        <div class="r">Hold, receive and send to anyone<b class="free">Free</b></div>
+        <div class="r">Network fees to move your money<b class="free">We cover them</b></div>
+      </div>
+      <p class="note-line">You always see the fee before you confirm.</p>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <p class="eyebrow">Questions</p>
+      <h2 class="display h2">The honest answers.</h2>
+      <div class="list">
+        <details open><summary>Is Seedless a bank?</summary><p>No. Seedless is a money app. Bank payouts are handled by a licensed payment partner, and your money never sits with us.</p></details>
+        <details><summary>Who holds my money?</summary><p>You do. Seedless never holds, controls or has access to your funds. Only you can move them, with your face or fingerprint.</p></details>
+        <details><summary>Do I need to know anything about crypto?</summary><p>No. Seedless runs on Solana under the hood, but you just see dollars, naira and the people you pay.</p></details>
+        <details><summary>Where can I pay a bank?</summary><p>Bank payouts are live in Nigeria first. More countries are coming.</p></details>
+        <details><summary>Has Seedless been audited?</summary><p>Seedless orchestrates audited infrastructure. Seedless itself has not been audited. Read our <a href="/security" style="text-decoration:underline">security policy</a>.</p></details>
       </div>
     </div>
   </section>
 
-  <!-- features -->
-  <section id="features" class="py-20 md:py-28">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight leading-[1.02]">
-        Your face or fingerprint<br/>
-        <span class="accent">No seed phrase, ever</span>
-      </h2>
-      <p class="mt-5 text-inkSoft text-base max-w-xl">Built for people who want their money to just work. No phrases to write down. No gas to figure out</p>
+  <section class="community">
+    <div class="panel">
+      <div class="moments" aria-hidden="true">
+        <div class="m" style="left:6%;top:18%">Rent · GTBank <em>Paid</em></div>
+        <div class="m" style="right:7%;top:22%;animation-delay:-2s">Mum · Opay <em>Paid</em></div>
+        <div class="m" style="left:9%;bottom:18%;animation-delay:-4s">Client · $600 <em>Received</em></div>
+        <div class="m" style="right:9%;bottom:16%;animation-delay:-1s">Tailor · Kuda <em>Paid</em></div>
+      </div>
+      <h2 class="display">Come build it with us.</h2>
+      <p>Early users get in before everyone else, tell us what's broken, and shape what we build next.</p>
+      <div class="cta">
+        <a class="btn btn-blue" href="https://t.me/seedless_beta" target="_blank" rel="noopener">Join the beta</a>
+        <a class="btn btn-white" href="https://x.com/seedless_wallet" target="_blank" rel="noopener">Follow on X</a>
+      </div>
+    </div>
+  </section>
 
-      <div class="mt-12 md:mt-14 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="card p-7">
-          <div class="aspect-[5/4] rounded-2xl flex items-center justify-center relative overflow-hidden bg-black/50 border border-line">
-            <div class="w-28 h-28 rounded-3xl flex items-center justify-center" style="background: rgba(0,174,255,0.08); border: 1px solid rgba(0,174,255,0.2);">
-              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#00aeff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 8V6a2 2 0 0 1 2-2h2"/><path d="M4 16v2a2 2 0 0 0 2 2h2"/><path d="M16 4h2a2 2 0 0 1 2 2v2"/><path d="M16 20h2a2 2 0 0 0 2-2v-2"/>
-                <path d="M9 10v1"/><path d="M15 10v1"/><path d="M12 10v4"/><path d="M9 16c1.2 1 4.8 1 6 0"/>
-              </svg>
-            </div>
-          </div>
-          <h3 class="font-bold text-base mt-5">Passkey Sign-In</h3>
-          <p class="text-sm text-inkSoft mt-1.5">Your face or fingerprint is the key. No 12 words to lose</p>
+  <footer>
+    <div class="wrap">
+      <div class="fgrid">
+        <div>
+          <a class="brand" href="/"><img src="assets/logo.png" alt="" />Seedless</a>
+          <p style="color:var(--slate);margin-top:12px;max-width:260px">The money app for people who get paid in dollars.</p>
         </div>
-        <div class="card p-7">
-          <div class="aspect-[5/4] rounded-2xl flex items-center justify-center relative overflow-hidden bg-black/50 border border-line">
-            <div class="px-7 py-4 rounded-full flex flex-col items-center" style="background: rgba(0,174,255,0.08); border: 1px solid rgba(0,174,255,0.2);">
-              <span class="text-3xl font-black accent">$0.00</span>
-              <span class="text-[10px] uppercase tracking-wider font-bold text-mute mt-1">Gas fee</span>
-            </div>
-          </div>
-          <h3 class="font-bold text-base mt-5">No Gas Fees</h3>
-          <p class="text-sm text-inkSoft mt-1.5">Send and sign without ever buying SOL first</p>
-        </div>
-        <div class="card p-7">
-          <div class="aspect-[5/4] rounded-2xl flex items-center justify-center relative overflow-hidden bg-black/50 border border-line">
-            <svg width="84" height="84" viewBox="0 0 24 24" fill="none" stroke="#00aeff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="8" cy="14" r="3.5" fill="#00aeff" fill-opacity="0.25"/>
-              <circle cx="16" cy="14" r="3.5" fill="#00aeff" fill-opacity="0.25"/>
-              <path d="M3 14h2"/><path d="M19 14h2"/>
-              <path d="M11 14c.5-1 1.5-1 2 0"/>
-              <path d="M5 9l3-3h8l3 3"/>
-            </svg>
-          </div>
-          <h3 class="font-bold text-base mt-5">Private by Default</h3>
-          <p class="text-sm text-inkSoft mt-1.5">Stealth and burner addresses, built in</p>
-        </div>
+        <div><h4>Product</h4><ul><li><a href="#how">How it works</a></li><li><a href="#do">What you can do</a></li><li><a href="#fees">Fees</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+        <div><h4>Company</h4><ul><li><a href="https://x.com/seedless_wallet" target="_blank" rel="noopener">X</a></li><li><a href="https://t.me/+ShXX2hovQH9hMGU0" target="_blank" rel="noopener">Community</a></li><li><a href="https://github.com/seedless-labs" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+        <div><h4>Legal</h4><ul><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/security">Security</a></li><li><a href="/data-deletion">Data deletion</a></li></ul></div>
       </div>
-    </div>
-  </section>
-
-  <!-- the last mile: dollars in, naira out -->
-  <section class="py-20 md:py-28 border-y border-line">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight leading-[1.02]">Dollars in. Naira out</h2>
-      <div class="mt-8 md:mt-10 card p-6 sm:p-10 md:p-14 max-w-4xl mx-auto text-center" style="border-color: rgba(0,174,255,0.3);">
-        <p class="text-xs uppercase tracking-[0.25em] text-mute font-bold mb-4">The Last Mile</p>
-        <h3 class="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight leading-tight">
-          Send to any <span class="accent">bank account</span>,<br/>
-          right from the app
-        </h3>
-        <p class="mt-4 text-inkSoft text-sm">Nigeria first · live September 24</p>
-      </div>
-      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-        <span class="pill-no"><span class="neg">No</span>off-ramp queue</span>
-        <span class="pill-no"><span class="neg">No</span>app switching</span>
-        <span class="pill-no"><span class="neg">No</span>waiting</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- your privacy your rules -->
-  <section class="py-20 md:py-28 border-b border-line">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-      <h2 class="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight leading-[1.02]">Your Privacy<br/><span class="accent">Your Rules</span></h2>
-      <p class="mt-5 text-base md:text-lg text-inkSoft max-w-xl mx-auto">Lightning-fast Solana transactions, built around your passkey. Send and stay private in one tap</p>
-      <div class="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-base font-semibold max-w-2xl mx-auto">
-        <span class="check">Private</span>
-        <span class="check">Gasless</span>
-        <span class="check">Simple</span>
-        <span class="check">Fast</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- final cta -->
-  <section id="beta" class="py-20 md:py-28">
-    <div class="max-w-3xl mx-auto px-6 text-center">
-      <h2 class="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight leading-[1.02]">Explore <span class="accent">Seedless</span></h2>
-      <p class="mt-5 text-inkSoft text-base md:text-lg max-w-md mx-auto">Live in private mainnet beta. Join the group to get the build before public launch</p>
-      <a href="https://t.me/seedless_beta" target="_blank" rel="noopener" class="btn-primary mt-9 inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold">
-        Join the Beta
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-    </div>
-  </section>
-
-  <!-- footer -->
-  <footer class="border-t border-line">
-    <div class="max-w-6xl mx-auto px-6 py-14 grid grid-cols-2 md:grid-cols-5 gap-8 text-sm">
-      <div class="col-span-2 md:col-span-1">
-        <div class="flex items-center gap-2">
-          <img src="assets/logo.png" alt="Seedless" class="w-8 h-8 rounded-lg" />
-          <span class="font-bold text-base">Seedless</span>
-        </div>
-        <p class="mt-3 text-xs text-mute max-w-[14rem]">The money app for people who get paid in dollars</p>
-      </div>
-      <div>
-        <p class="font-bold mb-3">Product</p>
-        <ul class="space-y-2 text-inkSoft">
-          <li><a href="#features" class="hover:text-white">Features</a></li>
-          <li><a href="#ecosystem" class="hover:text-white">Ecosystem</a></li>
-          <li><a href="https://t.me/seedless_beta" target="_blank" rel="noopener" class="hover:text-white">Join the Beta</a></li>
-        </ul>
-      </div>
-      <div id="seed">
-        <p class="font-bold mb-3">$SEED</p>
-        <ul class="space-y-2 text-inkSoft">
-          <li><a href="https://dexscreener.com/solana/FYt532fCsCuoHd9aaX5QN7pZLUTiSXwEjhBmZijgBAGS" target="_blank" rel="noopener" class="hover:text-white">Chart</a></li>
-          <li><a href="https://bags.fm/launch/FYt532fCsCuoHd9aaX5QN7pZLUTiSXwEjhBmZijgBAGS" target="_blank" rel="noopener" class="hover:text-white">Buy on Bags</a></li>
-          <li><a href="https://www.coingecko.com/en/coins/seedless-wallet" target="_blank" rel="noopener" class="hover:text-white">CoinGecko</a></li>
-        </ul>
-      </div>
-      <div>
-        <p class="font-bold mb-3">Legal</p>
-        <ul class="space-y-2 text-inkSoft">
-          <li><a href="/privacy" class="hover:text-white">Privacy</a></li>
-          <li><a href="/terms" class="hover:text-white">Terms</a></li>
-          <li><a href="/data-deletion" class="hover:text-white">Data Deletion</a></li>
-          <li><a href="/security" class="hover:text-white">Security</a></li>
-        </ul>
-      </div>
-      <div>
-        <p class="font-bold mb-3">Socials</p>
-        <ul class="space-y-2 text-inkSoft">
-          <li><a href="https://x.com/seedless_wallet" target="_blank" rel="noopener" class="hover:text-white">X (@seedless_wallet)</a></li>
-          <li><a href="https://t.me/+ShXX2hovQH9hMGU0" target="_blank" rel="noopener" class="hover:text-white">Telegram</a></li>
-          <li><a href="https://github.com/seedless-labs" target="_blank" rel="noopener" class="hover:text-white">GitHub</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="border-t border-line">
-      <div class="max-w-6xl mx-auto px-6 py-6 text-xs text-mute">
-        <p>&copy; 2026 Seedless Labs, Inc. &amp; Seedless Labs Limited</p>
-      </div>
+      <div class="fine"><span>© 2026 Seedless Labs, Inc.</span><span>Seedless is a financial technology app, not a bank.</span></div>
     </div>
   </footer>
 
