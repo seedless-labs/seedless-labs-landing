@@ -1,7 +1,7 @@
 {
   "name": "seedless-labs",
   "version": "1.0.0",
-  "description": "seedlesslabs.xyz - static landing site for Seedless, the passkey wallet on Solana",
+  "description": "seedlesslabs.xyz - static landing site for Seedless, the money app for people who get paid in dollars",
   "private": true,
   "scripts": {
     "css": "npx -y tailwindcss@3 -c tailwind.config.js -i tailwind-input.css -o public/assets/tailwind.css --minify"
