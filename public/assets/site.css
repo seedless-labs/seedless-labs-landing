@@ -163,3 +163,23 @@ footer a:hover{color:var(--ink)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 .links a[aria-current="page"]{color:var(--ink)}
 .page-top{padding-top:72px}
+
+/* legal pages */
+.legal{padding-block:64px 96px}
+.legal-wrap{max-width:780px}
+.legal h1{font-size:clamp(36px,5vw,56px);margin-top:10px}
+.legal .updated{color:var(--slate);font-size:14px;margin:12px 0 28px}
+.legal h2{font-family:var(--display);font-weight:700;font-size:24px;letter-spacing:-.015em;margin:40px 0 10px}
+.legal h3{font-weight:600;font-size:17px;margin:24px 0 8px}
+.legal p,.legal li{color:#2b3441;font-size:16px}
+.legal p+p{margin-top:12px}
+.legal ul,.legal ol{margin:10px 0 0 22px;display:flex;flex-direction:column;gap:6px}
+.legal a{color:var(--blue-ink);text-decoration:underline;text-underline-offset:2px}
+.legal strong{color:var(--ink)}
+.legal .callout{background:#FFF6DB;color:#5c4300;border-radius:14px;padding:14px 16px;margin:18px 0}
+.legal .callout strong{color:#3d2c00}
+.legal .table-wrap{overflow-x:auto;margin:12px 0}
+.legal table{width:100%;border-collapse:collapse;font-size:15px}
+.legal th{text-align:left;font-weight:600;font-size:13px;color:var(--slate);border-bottom:2px solid var(--line);padding:8px 12px 8px 0}
+.legal td{border-bottom:1px solid var(--line);padding:10px 12px 10px 0;vertical-align:top;color:#2b3441}
+.legal ul+p,.legal ol+p,.legal .table-wrap+p,.legal .callout+p{margin-top:14px}
