@@ -8,6 +8,7 @@
       "namespace": "android_app",
       "package_name": "com.seedless.wallet",
       "sha256_cert_fingerprints": [
+        "E2:B9:A0:8A:40:BD:52:B7:83:D7:78:0C:6F:19:61:A8:4F:6F:F2:65:10:84:62:66:56:3A:16:C7:B4:91:16:99",
         "24:4F:E4:B8:87:5B:27:FB:6A:6B:2A:9D:F1:DB:9A:45:51:04:10:7A:80:A3:64:F5:CC:89:D8:A2:8E:BA:26:47"
       ]
     }
