@@ -63,15 +63,16 @@
       <h1 class="display">Someone sent you money</h1>
       <p>It's waiting for you in Seedless, a money app for people who get paid in dollars.</p>
       <ol class="steps">
-        <li><span>Get Seedless on your phone and sign in with your face or fingerprint.</span></li>
-        <li><span>Come back to this link and tap <b>Open in Seedless</b>.</span></li>
+        <li><span>Get Seedless and sign in with your face or fingerprint.</span></li>
+        <li><span>Come back to this link and tap <b>Open in Seedless</b>. The money waits here until you do.</span></li>
         <li><span>Tap <b>Collect it</b>. The money lands in your balance.</span></li>
       </ol>
       <div class="cta">
         <a class="btn btn-blue" id="open" href="#">Open in Seedless</a>
-        <a class="btn btn-night" href="https://t.me/seedless_users" target="_blank" rel="noopener noreferrer">Get Seedless</a>
+        <a class="btn btn-night" id="get" href="https://t.me/seedless_users" target="_blank" rel="noopener noreferrer">Get Seedless</a>
       </div>
-      <p class="small">Seedless launches on Android on 24 September. Until then, the Seedless community on Telegram has the app.</p>
+      <p class="small" id="noapp" hidden>No Seedless on this phone yet? Get it above, then tap your link again.</p>
+      <p class="small" id="where"></p>
       <div class="warn">Keep this link to yourself. Whoever opens it in Seedless first collects the money.</div>
     </div>
 
@@ -90,14 +91,44 @@
     // installing the app must still find a working button.
     (function () {
       var frag = (location.hash || '').slice(1);
-      var valid = /^(v1|p1)\.[A-Za-z0-9_-]{86}$/.test(frag);
+      var valid = /^(v1|p1)\.[A-Za-z0-9_-]{86}$/.test(frag) || /^(v2|p2)\.[A-Za-z0-9_-]{22}$/.test(frag);
       var ok = document.getElementById('ok');
       var bad = document.getElementById('bad');
       if (!valid) { bad.hidden = false; return; }
       ok.hidden = false;
-      document.getElementById('open').addEventListener('click', function (e) {
+
+      // Send people to their own store. A store link only goes live once that
+      // store has approved the app; until then the community has it. The store
+      // URL never carries the link: the money's secret stays on this page.
+      var PLAY_LIVE = false;
+      var APP_STORE_LIVE = false;
+      var PLAY_URL = 'https://play.google.com/store/apps/details?id=com.seedless.wallet';
+      var APP_STORE_URL = '';
+      var ua = navigator.userAgent || '';
+      var android = /android/i.test(ua);
+      var ios = /iphone|ipad|ipod/i.test(ua) || (/macintosh/i.test(ua) && navigator.maxTouchPoints > 1);
+      var get = document.getElementById('get');
+      var where = document.getElementById('where');
+      var open = document.getElementById('open');
+      if (android) {
+        if (PLAY_LIVE) { get.href = PLAY_URL; get.textContent = 'Get Seedless on Google Play'; }
+        else where.textContent = 'Seedless is in review on Google Play. Until it is live, the Seedless community on Telegram has the app.';
+      } else if (ios) {
+        if (APP_STORE_LIVE) { get.href = APP_STORE_URL; get.textContent = 'Get Seedless on the App Store'; }
+        else where.textContent = 'Seedless is coming to iPhone. Keep this link, or open it on an Android phone. The money stays here until it is collected.';
+      } else {
+        open.hidden = true;
+        where.textContent = 'Open this link on your phone to collect the money.';
+      }
+
+      open.addEventListener('click', function (e) {
         e.preventDefault();
         window.location.href = 'seedless://claim#' + frag;
+        // If the app opened, this page went to the background. If it is still
+        // in front a moment later, the app is not installed: point at the store.
+        setTimeout(function () {
+          if (document.visibilityState === 'visible') document.getElementById('noapp').hidden = false;
+        }, 1500);
       });
     })();
   </script>

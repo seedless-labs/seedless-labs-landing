@@ -23,6 +23,23 @@
       ]
     },
     {
+      "source": "/c",
+      "headers": [
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
       "source": "/.well-known/assetlinks.json",
       "headers": [
         {
@@ -34,6 +51,12 @@
           "value": "public, max-age=300"
         }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/c",
+      "destination": "/claim"
     }
   ]
 }
