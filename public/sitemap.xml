@@ -7,6 +7,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://www.seedlesslabs.xyz/download</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://www.seedlesslabs.xyz/privacy</loc>
     <lastmod>2026-09-14</lastmod>
     <changefreq>monthly</changefreq>
