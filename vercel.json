@@ -71,5 +71,17 @@
       "source": "/c",
       "destination": "/claim"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/download/seeker",
+      "destination": "https://github.com/seedless-labs/seedless-labs-landing/releases/download/clockin-1.0.4/seedless-1.0.4-seeker.apk",
+      "permanent": false
+    },
+    {
+      "source": "/downloads/seeker",
+      "destination": "https://github.com/seedless-labs/seedless-labs-landing/releases/download/clockin-1.0.4/seedless-1.0.4-seeker.apk",
+      "permanent": false
+    }
   ]
 }
