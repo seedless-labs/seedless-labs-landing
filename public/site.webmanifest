@@ -1,6 +1,6 @@
 {
-  "name": "Seedless",
-  "short_name": "Seedless",
+  "name": "seedless",
+  "short_name": "seedless",
   "start_url": "/",
   "display": "browser",
   "background_color": "#FFFFFF",
