@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Collect your money | seedless</title>
-  <meta name="description" content="Someone sent you money on seedless. Open it in the seedless app to collect it." />
+  <title>collect your money | seedless</title>
+  <meta name="description" content="someone sent you money on seedless. open it in the seedless app to collect it." />
   <!-- The link's secret lives in the URL fragment. Browsers never send a
        fragment to a server, and no-referrer stops this page's address leaking
        to the font host. This page is never indexed. -->
@@ -13,14 +13,14 @@
   <meta name="theme-color" content="#00AEFF" />
   <meta property="og:site_name" content="seedless" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Someone sent you money on seedless" />
-  <meta property="og:description" content="Tap to collect it in the seedless app." />
+  <meta property="og:title" content="someone sent you money on seedless" />
+  <meta property="og:description" content="tap to collect it in the seedless app." />
   <meta property="og:image" content="https://www.seedlesslabs.xyz/assets/og.png" />
   <meta property="og:image:width" content="2400" />
   <meta property="og:image:height" content="1260" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Someone sent you money on seedless" />
-  <meta name="twitter:description" content="Tap to collect it in the seedless app." />
+  <meta name="twitter:title" content="someone sent you money on seedless" />
+  <meta name="twitter:description" content="tap to collect it in the seedless app." />
   <meta name="twitter:image" content="https://www.seedlesslabs.xyz/assets/og.png" />
   <link rel="icon" href="/favicon.ico" sizes="32x32" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -53,33 +53,33 @@
   <nav class="nav">
     <div class="wrap">
       <a class="brand" href="/"><img src="/assets/logo.png" alt="" />seedless</a>
-      <a class="btn btn-night" href="https://t.me/seedless_users" target="_blank" rel="noopener noreferrer">Get early access</a>
+      <a class="btn btn-night" href="https://t.me/seedless_users" target="_blank" rel="noopener noreferrer">get early access</a>
     </div>
   </nav>
 
   <main class="claim">
     <div class="card" id="ok" hidden>
       <div class="claim-coin" aria-hidden="true">$</div>
-      <h1 class="display">Someone sent you money</h1>
-      <p>It's waiting for you in seedless, a money app for people who get paid in dollars.</p>
+      <h1 class="display">someone sent you money</h1>
+      <p>it's waiting for you in seedless, a money app for people who get paid in dollars.</p>
       <ol class="steps">
-        <li><span>Get seedless and sign in with your face or fingerprint.</span></li>
-        <li><span>Come back to this link and tap <b>Open in seedless</b>. The money waits here until you do.</span></li>
-        <li><span>Tap <b>Collect it</b>. The money lands in your balance.</span></li>
+        <li><span>get seedless and sign in with your face or fingerprint.</span></li>
+        <li><span>come back to this link and tap <b>open in seedless</b>. the money waits here until you do.</span></li>
+        <li><span>tap <b>collect it</b>. the money lands in your balance.</span></li>
       </ol>
       <div class="cta">
-        <a class="btn btn-blue" id="open" href="#">Open in seedless</a>
-        <a class="btn btn-night" id="get" href="https://t.me/seedless_users" target="_blank" rel="noopener noreferrer">Get seedless</a>
+        <a class="btn btn-blue" id="open" href="#">open in seedless</a>
+        <a class="btn btn-night" id="get" href="https://t.me/seedless_users" target="_blank" rel="noopener noreferrer">get seedless</a>
       </div>
-      <p class="small" id="noapp" hidden>No seedless on this phone yet? Get it above, then tap your link again.</p>
+      <p class="small" id="noapp" hidden>no seedless on this phone yet? get it above, then tap your link again.</p>
       <p class="small" id="where"></p>
-      <div class="warn">Keep this link to yourself. Whoever opens it in seedless first collects the money.</div>
+      <div class="warn">keep this link to yourself. whoever opens it in seedless first collects the money.</div>
     </div>
 
     <div class="card" id="bad" hidden>
-      <h1 class="display">This link looks incomplete</h1>
-      <p>Part of it may have been cut off when it was sent. Ask the person who sent it to share the whole link again.</p>
-      <div class="cta"><a class="btn btn-night" href="/">What is seedless?</a></div>
+      <h1 class="display">this link looks incomplete</h1>
+      <p>part of it may have been cut off when it was sent. ask the person who sent it to share the whole link again.</p>
+      <div class="cta"><a class="btn btn-night" href="/">what is seedless?</a></div>
     </div>
   </main>
 
@@ -111,14 +111,14 @@
       var where = document.getElementById('where');
       var open = document.getElementById('open');
       if (android) {
-        if (PLAY_LIVE) { get.href = PLAY_URL; get.textContent = 'Get seedless on Google Play'; }
-        else where.textContent = 'seedless is in review on Google Play. Until it is live, the seedless community on Telegram has the app.';
+        if (PLAY_LIVE) { get.href = PLAY_URL; get.textContent = 'get seedless on google play'; }
+        else where.textContent = 'seedless is in review on google play. until it is live, the seedless community on telegram has the app.';
       } else if (ios) {
-        if (APP_STORE_LIVE) { get.href = APP_STORE_URL; get.textContent = 'Get seedless on the App Store'; }
-        else where.textContent = 'seedless is coming to iPhone. Keep this link, or open it on an Android phone. The money stays here until it is collected.';
+        if (APP_STORE_LIVE) { get.href = APP_STORE_URL; get.textContent = 'get seedless on the app store'; }
+        else where.textContent = 'seedless is coming to iphone. keep this link, or open it on an android phone. the money stays here until it is collected.';
       } else {
         open.hidden = true;
-        where.textContent = 'Open this link on your phone to collect the money.';
+        where.textContent = 'open this link on your phone to collect the money.';
       }
 
       open.addEventListener('click', function (e) {
