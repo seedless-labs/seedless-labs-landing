@@ -15,13 +15,13 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="someone sent you money on seedless" />
   <meta property="og:description" content="tap to collect it in the seedless app." />
-  <meta property="og:image" content="https://www.seedlesslabs.xyz/assets/og.png" />
+  <meta property="og:image" content="https://www.seedlesslabs.xyz/assets/og.png?v=20261016" />
   <meta property="og:image:width" content="2400" />
   <meta property="og:image:height" content="1260" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="someone sent you money on seedless" />
   <meta name="twitter:description" content="tap to collect it in the seedless app." />
-  <meta name="twitter:image" content="https://www.seedlesslabs.xyz/assets/og.png" />
+  <meta name="twitter:image" content="https://www.seedlesslabs.xyz/assets/og.png?v=20261016" />
   <link rel="icon" href="/favicon.ico" sizes="32x32" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -53,7 +53,7 @@
   <nav class="nav">
     <div class="wrap">
       <a class="brand" href="/"><img src="/assets/logo.png" alt="" />seedless</a>
-      <a class="btn btn-night" href="https://t.me/seedless_users" target="_blank" rel="noopener noreferrer">get early access</a>
+      <a class="btn btn-night" href="/download">download</a>
     </div>
   </nav>
 
@@ -69,7 +69,7 @@
       </ol>
       <div class="cta">
         <a class="btn btn-blue" id="open" href="#">open in seedless</a>
-        <a class="btn btn-night" id="get" href="https://t.me/seedless_users" target="_blank" rel="noopener noreferrer">get seedless</a>
+        <a class="btn btn-night" id="get" href="/download">get seedless</a>
       </div>
       <p class="small" id="noapp" hidden>no seedless on this phone yet? get it above, then tap your link again.</p>
       <p class="small" id="where"></p>
@@ -100,7 +100,7 @@
       // Send people to their own store. A store link only goes live once that
       // store has approved the app; until then the community has it. The store
       // URL never carries the link: the money's secret stays on this page.
-      var PLAY_LIVE = false;
+      var PLAY_LIVE = true;
       var APP_STORE_LIVE = false;
       var PLAY_URL = 'https://play.google.com/store/apps/details?id=com.seedless.wallet';
       var APP_STORE_URL = '';
@@ -112,10 +112,10 @@
       var open = document.getElementById('open');
       if (android) {
         if (PLAY_LIVE) { get.href = PLAY_URL; get.textContent = 'get seedless on google play'; }
-        else where.textContent = 'seedless is in review on google play. until it is live, the seedless community on telegram has the app.';
+        else where.textContent = 'get seedless from our download page, then tap your link again.';
       } else if (ios) {
         if (APP_STORE_LIVE) { get.href = APP_STORE_URL; get.textContent = 'get seedless on the app store'; }
-        else where.textContent = 'seedless is coming to iphone. keep this link, or open it on an android phone. the money stays here until it is collected.';
+        else where.textContent = 'on iphone, seedless installs through testflight from our download page. the money stays here until it is collected.';
       } else {
         open.hidden = true;
         where.textContent = 'open this link on your phone to collect the money.';
