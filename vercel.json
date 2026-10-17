@@ -70,6 +70,10 @@
     {
       "source": "/c",
       "destination": "/claim"
+    },
+    {
+      "source": "/x/:path*",
+      "destination": "https://seedless-api.francislogo2219.workers.dev/x/:path*"
     }
   ],
   "redirects": [
