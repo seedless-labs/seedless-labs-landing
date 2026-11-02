@@ -97,13 +97,12 @@
       if (!valid) { bad.hidden = false; return; }
       ok.hidden = false;
 
-      // Send people to their own store. A store link only goes live once that
-      // store has approved the app; until then the community has it. The store
-      // URL never carries the link: the money's secret stays on this page.
-      var PLAY_LIVE = true;
-      var APP_STORE_LIVE = false;
+      // Send people to their own phone's store. The store URL never carries
+      // the link: the money's secret stays on this page.
       var PLAY_URL = 'https://play.google.com/store/apps/details?id=com.seedless.wallet';
-      var APP_STORE_URL = '';
+      var APP_STORE_URL = 'https://apps.apple.com/app/id6817334298';
+      // Seeker's own store, falling back to google play if it can't open.
+      var DAPP_STORE_URL = 'intent://details?id=com.seedless.wallet#Intent;scheme=solanadappstore;S.browser_fallback_url=' + encodeURIComponent(PLAY_URL) + ';end';
       var ua = navigator.userAgent || '';
       var android = /android/i.test(ua);
       var ios = /iphone|ipad|ipod/i.test(ua) || (/macintosh/i.test(ua) && navigator.maxTouchPoints > 1);
@@ -111,11 +110,19 @@
       var where = document.getElementById('where');
       var open = document.getElementById('open');
       if (android) {
-        if (PLAY_LIVE) { get.href = PLAY_URL; get.textContent = 'get seedless on google play'; }
-        else where.textContent = 'get seedless from our download page, then tap your link again.';
+        get.href = PLAY_URL;
+        get.textContent = 'get seedless on google play';
+        // Chrome hides the phone model in the user agent; ask for it instead.
+        var solanaPhone = function (model) { return /seeker|saga/i.test(model || ''); };
+        if (solanaPhone(ua)) { get.href = DAPP_STORE_URL; get.textContent = 'get seedless on the dapp store'; }
+        else if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+          navigator.userAgentData.getHighEntropyValues(['model']).then(function (v) {
+            if (solanaPhone(v.model)) { get.href = DAPP_STORE_URL; get.textContent = 'get seedless on the dapp store'; }
+          }).catch(function () {});
+        }
       } else if (ios) {
-        if (APP_STORE_LIVE) { get.href = APP_STORE_URL; get.textContent = 'get seedless on the app store'; }
-        else where.textContent = 'on iphone, seedless installs through testflight from our download page. the money stays here until it is collected.';
+        get.href = APP_STORE_URL;
+        get.textContent = 'get seedless on the app store';
       } else {
         open.hidden = true;
         where.textContent = 'open this link on your phone to collect the money.';
