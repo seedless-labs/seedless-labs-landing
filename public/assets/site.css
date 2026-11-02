@@ -183,3 +183,5 @@ footer a:hover{color:var(--ink)}
 .legal th{text-align:left;font-weight:600;font-size:13px;color:var(--slate);border-bottom:2px solid var(--line);padding:8px 12px 8px 0}
 .legal td{border-bottom:1px solid var(--line);padding:10px 12px 10px 0;vertical-align:top;color:#2b3441}
 .legal ul+p,.legal ol+p,.legal .table-wrap+p,.legal .callout+p{margin-top:14px}
+.stores{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:16px 0 8px}
+.stores img{height:48px;width:auto;display:block}
