@@ -130,7 +130,13 @@
 
       open.addEventListener('click', function (e) {
         e.preventDefault();
-        window.location.href = 'seedless://claim#' + frag;
+        // On Android a bare seedless:// address goes to any app that claims
+        // the scheme, secret included. The intent is pinned to the Seedless
+        // package; it can't carry a fragment, so the app reads ?f=. Nothing
+        // leaves the phone: an intent address is never fetched.
+        window.location.href = android
+          ? 'intent://claim?f=' + frag + '#Intent;scheme=seedless;package=com.seedless.wallet;end'
+          : 'seedless://claim#' + frag;
         // If the app opened, this page went to the background. If it is still
         // in front a moment later, the app is not installed: point at the store.
         setTimeout(function () {
