@@ -238,3 +238,9 @@ footer a:hover{color:var(--ink)}
 .stores img{height:48px;width:auto;display:block}
 
 .code-block{background:var(--ink);color:#f5f5f5;border-radius:12px;padding:16px;overflow-x:auto;font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;margin:8px 0 16px;white-space:pre}
+.explore{padding-block:96px}
+.explore .links{margin-top:36px;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.explore .links a{display:block;background:var(--mist);border-radius:16px;padding:18px 22px;text-decoration:none;color:inherit;transition:transform .15s}
+.explore .links a:hover{transform:translateY(-2px)}
+.explore .links b{display:block;font-weight:600;font-size:17px}
+.explore .links small{display:block;color:var(--slate);margin-top:4px;font-size:14px}
